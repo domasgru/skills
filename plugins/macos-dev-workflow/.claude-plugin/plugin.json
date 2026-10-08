@@ -1,0 +1,11 @@
+{
+  "name": "macos-dev-workflow",
+  "version": "0.1.0",
+  "description": "Development workflow for macOS and iOS apps. Installs the core workflow and adds the Apple platform skills: axiom, swift-concurrency, swift-testing-pro.",
+  "author": { "name": "Dominykas Grubys", "url": "https://github.com/domasgru" },
+  "repository": "https://github.com/domasgru/skills",
+  "license": "MIT",
+  "keywords": ["workflow", "macos", "ios", "swift", "swiftui"],
+  "dependencies": ["dev-workflow@domasgru"],
+  "skills": ["./skills", "./.claude/skills"]
+}

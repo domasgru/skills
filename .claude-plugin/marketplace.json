@@ -1,0 +1,19 @@
+{
+  "name": "domasgru",
+  "owner": { "name": "Dominykas Grubys", "url": "https://github.com/domasgru" },
+  "description": "Development workflow plugins and skills by Dominykas Grubys.",
+  "plugins": [
+    {
+      "name": "dev-workflow",
+      "source": "./plugins/dev-workflow",
+      "description": "Topic-agnostic specify, plan, architect, implement loop run by reviewed subagents in feature worktrees, plus how and why for reading a codebase. Works on its own; topic plugins add their skills.",
+      "category": "engineering"
+    },
+    {
+      "name": "macos-dev-workflow",
+      "source": "./plugins/macos-dev-workflow",
+      "description": "The development workflow for macOS and iOS apps: the core plus the Apple platform skills the agents draw on.",
+      "category": "engineering"
+    }
+  ]
+}

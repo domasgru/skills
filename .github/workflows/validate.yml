@@ -1,0 +1,27 @@
+name: Validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Claude Code
+        run: |
+          curl -fsSL https://claude.ai/install.sh | bash
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Validate marketplace
+        run: claude plugin validate . --strict
+
+      - name: Validate plugins
+        run: |
+          for dir in plugins/*/; do
+            echo "::group::$dir"
+            (cd "$dir" && claude plugin validate . --strict)
+            echo "::endgroup::"
+          done

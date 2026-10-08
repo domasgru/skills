@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "skills": {
+    "axiom-apple-docs": {
+      "source": "CharlesWiltgen/axiom",
+      "sourceType": "github",
+      "skillPath": ".claude-plugin/plugins/axiom/skills/axiom-apple-docs/SKILL.md",
+      "computedHash": "f97c186eed6555053b68f578244b18a3c4e2544669ed3a0fcb6d2d469c52a3b8"
+    },
+    "axiom-data": {
+      "source": "CharlesWiltgen/axiom",
+      "sourceType": "github",
+      "skillPath": ".claude-plugin/plugins/axiom/skills/axiom-data/SKILL.md",
+      "computedHash": "15e4768d77d1c94af32b5b6ba01f6cfaf3a50f2ecc7aadd80d9a715c28158e7a"
+    },
+    "axiom-graphics": {
+      "source": "CharlesWiltgen/axiom",
+      "sourceType": "github",
+      "skillPath": ".claude-plugin/plugins/axiom/skills/axiom-graphics/SKILL.md",
+      "computedHash": "e218995a15eb781f41a036d637caad17749ecef6b47f9ef9ea7be5975277e5d0"
+    },
+    "axiom-macos": {
+      "source": "CharlesWiltgen/axiom",
+      "sourceType": "github",
+      "skillPath": ".claude-plugin/plugins/axiom/skills/axiom-macos/SKILL.md",
+      "computedHash": "47d496a023942e459d68c3223c8a08138dc74582e679b192289b267aafeb1232"
+    },
+    "axiom-swiftui": {
+      "source": "CharlesWiltgen/axiom",
+      "sourceType": "github",
+      "skillPath": ".claude-plugin/plugins/axiom/skills/axiom-swiftui/SKILL.md",
+      "computedHash": "c8049a00abdfd56809a7e61567758b5be134218248b14ee65e9734d739ae6c38"
+    },
+    "swift-concurrency": {
+      "source": "avdlee/swift-concurrency-agent-skill",
+      "sourceType": "github",
+      "skillPath": "skills/swift-concurrency/SKILL.md",
+      "computedHash": "49e4df69412710a0ca320c21a9d26cf4abb6d2c553960cffaceea5a09e3be792"
+    },
+    "swift-testing-pro": {
+      "source": "twostraws/Swift-Testing-Agent-Skill",
+      "sourceType": "github",
+      "skillPath": "swift-testing-pro/SKILL.md",
+      "computedHash": "576d9b4705c76262095e2470e99bb9a89324ac4467e7ee54b7032697a8789b3d"
+    }
+  }
+}

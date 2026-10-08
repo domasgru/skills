@@ -1,0 +1,10 @@
+{
+  "name": "dev-workflow",
+  "version": "0.1.0",
+  "description": "Specify, plan or architect, and implement features with reviewed subagents in feature worktrees: /do, /specify, /plan, /architect, /implement, /worktree, plus /how, /why and /research. Topic-agnostic; add a topic plugin or your own skills.",
+  "author": { "name": "Dominykas Grubys", "url": "https://github.com/domasgru" },
+  "repository": "https://github.com/domasgru/skills",
+  "license": "MIT",
+  "keywords": ["workflow", "planning", "specification", "architecture", "subagents", "worktrees"],
+  "skills": ["./skills", "./.claude/skills"]
+}
