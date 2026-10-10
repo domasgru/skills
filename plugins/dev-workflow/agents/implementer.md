@@ -12,7 +12,7 @@ You are provided the slice of the feature along with a testing and implementatio
 
 The Skill tool lists the skills installed for this project. Invoke the ones relevant to your task before starting.
 
-Use the `tdd` skill where relevant, at the seams the plan names.
+Use the `tdd` skill where relevant, at the seams the plan names. Those seams were reviewed against `${CLAUDE_PLUGIN_ROOT}/references/test-review.md`, and they are the agreed seams the `tdd` skill asks for; don't ask the user to confirm them. Write tests only at those seams, under the same review's rules. When a scenario can only be tested below them, or only by asserting a mechanism, don't write that test: report it to the orchestrator.
 
 Build regularly, run individual test files regularly, and the full test suite once at the end.
 

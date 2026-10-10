@@ -17,6 +17,8 @@ Route the request by what it changes:
 
 Pick the planning skill by the size of the design: a new feature or a significant change — one that introduces a new module, data shape, or interface, or reshapes ownership or boundaries between existing ones — goes to `${CLAUDE_PLUGIN_ROOT}/skills/architect/SKILL.md`. A less complex feature or change that fits within existing modules and interfaces goes to `${CLAUDE_PLUGIN_ROOT}/skills/plan/SKILL.md`.
 
+The human never reviews the testing decisions, though the `tdd` skill expects its seams to be agreed up front. The planning agents review their own seams and test scenarios against `${CLAUDE_PLUGIN_ROOT}/references/test-review.md`, and the plan and implementation reviewers check them again, so no test is coupled to the implementation or restates it.
+
 If the human asks for a new feature or a change to an existing feature, specify the requirements, ask the human to review and confirm them, then implement them:
 1. Follow the steps in the `${CLAUDE_PLUGIN_ROOT}/skills/specify/SKILL.md` skill for the human's request. Once done, show the user the plan and ask for confirmation to proceed.
 2. After confirmation, follow the planning skill picked above with the pointer to the plan.

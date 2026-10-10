@@ -36,7 +36,7 @@ Look for the originating plan, in this order:
 
 ### 3. Identify the standards sources
 
-Anything in the repo that documents how code should be written, such as `docs/architecture.md` and `docs/domain-model.md`. For the tests, also `${CLAUDE_PLUGIN_ROOT}/.claude/skills/tdd/tests.md` and `${CLAUDE_PLUGIN_ROOT}/.claude/skills/tdd/mocking.md`.
+Anything in the repo that documents how code should be written, such as `docs/architecture.md` and `docs/domain-model.md`. For the tests, also `${CLAUDE_PLUGIN_ROOT}/.claude/skills/tdd/tests.md`, `${CLAUDE_PLUGIN_ROOT}/.claude/skills/tdd/mocking.md` and `${CLAUDE_PLUGIN_ROOT}/references/test-review.md`.
 
 On top of whatever the repo documents, the Standards axis always carries the **smell baseline** defined in the `implementation-standards-reviewer` subagent from this plugin: a fixed set of Fowler code smells that applies even when a repo documents nothing.
 

@@ -16,7 +16,7 @@ You are given the path to a plan and the path to the grounding artifacts; on a l
 
 ## Step 1: Decide testing
 
-Sketch out the seams at which the feature is tested, starting from the seams the design names. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better - the ideal number is one.
+Sketch out the seams at which the feature is tested, starting from the seams the design names. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better - the ideal number is one. No human confirms these seams, so once the rows are written, review the seams and every row against `${CLAUDE_PLUGIN_ROOT}/references/test-review.md`. Fix what it finds, and record the review in Strategy as its Seam review paragraph. A requirement no public seam of the design can observe is a design finding.
 
 Make every row **discriminating**: it goes red when the mechanism it proves is removed. A row that a timer, a rescan, a retry or a second code path could turn green anyway proves nothing about the path it names, so take the other path away or rewrite the row. The techniques that get there:
 
@@ -38,6 +38,8 @@ The one rule that binds the testing sections: **every `R<N>` is covered by at le
 ### Strategy
 
 How the requirements will be proven, in a few sentences: the seams the tests run at, what each observes and what it misses; the existing tests the new ones will resemble, by path; the system boundaries that will be faked (external APIs, the clock, randomness, the filesystem or database where a real one is genuinely unavailable) and how. Everything we own is used for real. "None" when no requirement is proved by a new test, with one sentence why; Verified without a test then carries every requirement.
+
+Seam review: the result of `${CLAUDE_PLUGIN_ROOT}/references/test-review.md`. Every seam with the refactor it survives, and every test scenario the review moved, merged or dropped.
 
 ### Test scenarios
 
