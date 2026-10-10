@@ -16,7 +16,7 @@ The Skill tool lists the skills installed for this project. Invoke the ones rele
 
 1. Read the requirements in `plans/<NNN-slug>/plan.md`, our application architecture `docs/architecture.md`, `docs/domain-model.md`, and the current state of the codebase.
 
-2. Sketch out the seams at which you're going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better - the ideal number is one.
+2. Sketch out the seams at which you're going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better - the ideal number is one. No human confirms these seams, so once the test scenarios are written, review the seams and every scenario against `${CLAUDE_PLUGIN_ROOT}/references/test-review.md`. Fix what it finds, and record the review in Strategy as its Seam review paragraph.
 
 3. Create a plan using the template below and append it to `plans/<NNN-slug>/plan.md`, after the requirements already there.
 
@@ -43,6 +43,8 @@ The Skill tool lists the skills installed for this project. Invoke the ones rele
    ### Strategy
 
    How the requirements will be proven, in a few sentences: the seams the tests run at, what each observes and what it misses; the existing tests the new ones will resemble, by path; the system boundaries that will be faked (external APIs, the clock, randomness, the filesystem or database where a real one is genuinely unavailable) and how. Everything we own is used for real. "None" when no requirement is proved by a new test, with one sentence why; Verified without a test then carries every requirement.
+
+   Seam review: the result of `${CLAUDE_PLUGIN_ROOT}/references/test-review.md`. Every seam with the refactor it survives, and every test scenario the review moved, merged or dropped.
 
    ### Test scenarios
 
