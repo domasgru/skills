@@ -4,7 +4,7 @@ description: Implement provided implementation plan of the feature in code. Disp
 model: opus
 effort: medium
 color: blue
-tools: Read, Glob, Grep, Bash, Edit, Write, Agent, Monitor, Skill
+tools: Read, Glob, Grep, Bash, Edit, Write, Agent, Skill
 skills: [codebase-design]
 ---
 

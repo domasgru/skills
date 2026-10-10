@@ -4,7 +4,7 @@ description: Implement provided slice of the feature in code. Dispatched by inte
 model: sonnet
 effort: medium
 color: blue
-tools: Read, Glob, Grep, Bash, Edit, Write, Monitor, Skill
+tools: Read, Glob, Grep, Bash, Edit, Write, Skill
 skills: [tdd]
 ---
 
