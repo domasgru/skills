@@ -10,5 +10,6 @@ The **main checkout** is the repo's original directory, the one every worktree h
 
 1. **Leave the worktree.** When `git rev-parse --show-toplevel` already prints the main checkout, go to step 2. Otherwise call `ExitWorktree` with `action: "keep"`. When it reports no active worktree session, the session was launched inside the worktree and has no way out: tell the human to restart Claude Code from the main checkout path, and stop.
 2. **Be on `main`.** When `git branch --show-current` prints another branch and `git status --porcelain` is empty, run `git switch main`. When the tree has changes, report the branch and the changes, and stop.
+3. **Update `main`.** Run `worktree.sh`, in the `worktree` skill's directory beside this one, as `bash <path> sync-main`, where `<path>` is its absolute path. It fast-forwards `main` to `origin/main` when it can and leaves `main` as it was otherwise, without output either way.
 
 Done when `git rev-parse --show-toplevel` prints the main checkout and `git branch --show-current` prints `main`. Report both.

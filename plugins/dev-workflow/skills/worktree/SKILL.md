@@ -12,7 +12,7 @@ Every write a workflow skill makes lands in a worktree: `.claude/worktrees/<NNN-
 
 Skip when the session is already in the worktree for this request (for example `/do` started it before following `/specify`). Otherwise:
 
-1. Run `worktree.sh`, beside this file, as `bash <path> start <slug>`. `<slug>` is two to four lowercase words joined by dashes, derived from the request. The script prunes merged worktrees, then prints the new worktree's path.
+1. Run `worktree.sh`, beside this file, as `bash <path> start <slug>`. `<slug>` is two to four lowercase words joined by dashes, derived from the request. The script fast-forwards local `main` to `origin/main` when it can, prunes merged worktrees, then prints the new worktree's path.
 2. Call `EnterWorktree` with that path. The path's basename is the `<NNN-slug>`: it names `plans/<NNN-slug>/` and `feature/<NNN-slug>`.
 
 Done when `git branch --show-current` prints `feature/<NNN-slug>`. From here on everything, including every subagent you dispatch, runs in the worktree.
