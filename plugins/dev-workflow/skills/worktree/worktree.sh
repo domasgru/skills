@@ -1,14 +1,23 @@
 #!/usr/bin/env bash
-# Usage: worktree.sh start <slug> | resume <NNN-slug> | prune
+# Usage: worktree.sh start <slug> | resume <NNN-slug> | prune | sync-main
 # Feature worktrees live under .claude/worktrees/<NNN-slug> on feature/<NNN-slug>.
 # start and resume print the worktree path on stdout; everything else goes to stderr.
 set -euo pipefail
 root=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")
 dir="$root/.claude/worktrees"
-usage="usage: worktree.sh start <slug> | resume <NNN-slug> | prune"
+usage="usage: worktree.sh start <slug> | resume <NNN-slug> | prune | sync-main"
+
+# Fetch origin/main and fast-forward local main to it. Leaves local main as it was when
+# that is not possible (diverged, or conflicting changes in the checkout holding main).
+# Returns 1 only when the fetch fails.
+sync_main() {
+  git -C "$root" fetch -q origin main 2>/dev/null || return 1
+  if [ "$(git -C "$root" branch --show-current)" = main ]; then git -C "$root" merge -q --ff-only origin/main
+  else git -C "$root" fetch -q . origin/main:main; fi >/dev/null 2>&1 || true
+}
 
 base() {
-  if git -C "$root" fetch -q origin main 2>/dev/null; then echo origin/main
+  if sync_main; then echo origin/main
   else echo "warning: fetch failed, branching from local main" >&2; echo main; fi
 }
 
@@ -45,5 +54,6 @@ resume() {
 case "${1:-}" in
   start|resume) [ $# -eq 2 ] || { echo "$usage" >&2; exit 2; }; "$@" ;;
   prune) prune ;;
+  sync-main) sync_main || true ;;
   *) echo "$usage" >&2; exit 2 ;;
 esac
