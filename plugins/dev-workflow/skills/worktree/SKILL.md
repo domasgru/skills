@@ -1,6 +1,6 @@
 ---
 name: worktree
-description: "Start, resume, finish or prune a feature worktree. Run by hand like this: /worktree prune"
+description: "Start, resume, finish, discard or prune a feature worktree. Run by hand like this: /worktree prune"
 disable-model-invocation: true
 metadata:
   internal: true
@@ -47,6 +47,10 @@ A very concise and simple description of what was implemented.
 Describe whether it's a one-way or two-way door. You can walk back through two-way doors, but not one-way doors. A PR that is cheap to roll back is lower risk. Changes that involve destructive actions or hard-to-reverse decisions are one-way doors.
 
 The blast radius is the potential impact or scope of the changes introduced by this PR. Consider all possibilities. Examples are layout shift, breakages for consumers, mobile responsiveness, etc.
+
+## Discard `<NNN-slug>`
+
+For a worktree whose work ended with nothing to ship, such as a maintenance pass that found nothing to change. Call `ExitWorktree` with `action: "keep"`, then run `worktree.sh`, beside this file, as `bash <path> discard <NNN-slug>`. It removes the worktree and its branch only when the tree is clean and the branch holds no commit that `main` lacks; otherwise it refuses and says why, and the worktree stays for the human. Copy out anything the report must keep, such as evidence under the worktree's build directories, before discarding.
 
 ## Prune
 
