@@ -22,7 +22,7 @@ Communication to and from subagents should be sparse. Communicate primarily thro
 
 4. Once an **implementer subagent** successfully completes, commit its work to the feature branch. Each implemented slice is one commit on the feature branch.
 
-5. Once all slices are implemented, keep the project's verification skill in sync. If the repo has one (`.claude/skills/verify-*/`) and the branch's diff changes anything it describes (a handle, a launch or build step, a path one of its `features/` recipes drives, or a recipe's path that a test on the branch now drives), dispatch one **implementer subagent** to update the skill's directory, under the edit scope and map rule of `${CLAUDE_PLUGIN_ROOT}/skills/maintain-verification-skill/SKILL.md`, and to drive each changed recipe once with the skill. If the skill refuses because another run holds the machine, it doesn't wait: it ships the update undriven and says so in the log. Commit the update to the feature branch and log it under Implement in `plans/<NNN-slug>/development-logs.md`. Nothing it describes changed → skip this step.
+5. Once all slices are implemented, if the repo has a verification skill (`.claude/skills/verify-*/`), dispatch one **implementer subagent** to follow Branch mode in `${CLAUDE_PLUGIN_ROOT}/skills/maintain-verification-skill/SKILL.md`, passing it only the plan path. Commit any edits it leaves to the feature branch and log its outcome line under Implement in `plans/<NNN-slug>/development-logs.md`. A `failed` outcome is a bug in the branch: hand it to the fix in step 7.
 
 6. Run the `implementation-reviewer` subagent from this plugin, passing it the plan path and `main` as the fixed point. Tell it that a verification-skill commit from step 5 is upkeep, not scope creep.
 
