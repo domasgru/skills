@@ -59,4 +59,4 @@ Prove each fix with a failing case: a recorded pid now owned by an unrelated pro
 
 ## 5. Offer the maintenance loop
 
-A feature map rots the moment the app changes. Tell the user how to keep it honest: after user-facing changes, drive every mapped feature live with the generated skill, fix doc drift and harness gaps in the skill's own directory, and report app behavior that is actually broken as a product regression instead of papering over it in the map. When a test comes to cover a mapped path, retire its recipe. Suggest a cadence only if they ask.
+Point the user at `/maintain-verification-skill` for keeping the map honest as the app changes. Suggest a cadence only if they ask.

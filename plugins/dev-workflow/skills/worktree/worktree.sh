@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Usage: worktree.sh start <slug> | resume <NNN-slug> | prune | sync-main
+# Usage: worktree.sh start <slug> | resume <NNN-slug> | discard <NNN-slug> | prune | sync-main
 # Feature worktrees live under .claude/worktrees/<NNN-slug> on feature/<NNN-slug>.
 # start and resume print the worktree path on stdout; everything else goes to stderr.
 set -euo pipefail
 root=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")
 dir="$root/.claude/worktrees"
-usage="usage: worktree.sh start <slug> | resume <NNN-slug> | prune | sync-main"
+usage="usage: worktree.sh start <slug> | resume <NNN-slug> | discard <NNN-slug> | prune | sync-main"
 
 # Fetch origin/main and fast-forward local main to it. Leaves local main as it was when
 # that is not possible (diverged, or conflicting changes in the checkout holding main).
@@ -25,7 +25,7 @@ prune() {
   git -C "$root" worktree prune
   for wt in "$dir"/*/; do
     [ -d "$wt" ] || continue
-    case "$PWD/" in "$wt"*) continue;; esac          # never remove the worktree we run from
+    case "$(pwd -P)/" in "$wt"*) continue;; esac    # never remove the worktree we run from
     branch=$(git -C "$wt" branch --show-current)
     [ -n "$branch" ] || continue
     [ "$(gh pr view "$branch" --json state --jq .state 2>/dev/null)" = MERGED ] || continue
@@ -51,8 +51,22 @@ resume() {
   echo "$dir/$1"
 }
 
+# Removes a worktree that produced nothing, with its branch: only when its tree is clean and its
+# branch holds no commit that main or origin/main lacks. Refuses anything else, and the worktree
+# it runs from.
+discard() {
+  wt="$dir/$1"; branch="feature/$1"
+  [ -d "$wt" ] || { echo "no worktree $1" >&2; exit 1; }
+  case "$(pwd -P)/" in "$wt"/*) echo "refusing: run discard from outside $1" >&2; exit 1;; esac
+  [ -z "$(git -C "$wt" status --porcelain)" ] || { echo "refusing: $1 has uncommitted changes" >&2; exit 1; }
+  ahead=$(git -C "$root" rev-list --count "$branch" --not main $(git -C "$root" rev-parse -q --verify origin/main || true))
+  [ "$ahead" = 0 ] || { echo "refusing: $branch has $ahead commit(s) not on main" >&2; exit 1; }
+  git -C "$root" worktree remove "$wt" && git -C "$root" branch -D "$branch" >/dev/null
+  echo "discarded $branch" >&2
+}
+
 case "${1:-}" in
-  start|resume) [ $# -eq 2 ] || { echo "$usage" >&2; exit 2; }; "$@" ;;
+  start|resume|discard) [ $# -eq 2 ] || { echo "$usage" >&2; exit 2; }; "$@" ;;
   prune) prune ;;
   sync-main) sync_main || true ;;
   *) echo "$usage" >&2; exit 2 ;;
