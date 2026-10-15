@@ -21,7 +21,7 @@ elif grep -Eq '/subagents/agent-|/tasks/a[0-9a-f]{16}\.output' <<<"$command"; th
 fi
 [ -n "$reason" ] || exit 0
 
-jq -n --arg reason "Blocked: $reason Background subagents and run_in_background commands notify you when they finish, including when they fail. End your turn; the notification resumes you. Run a long command such as a test gate as a foreground Bash call with a long timeout, or with run_in_background." '{
+jq -n --arg reason "Blocked: $reason To wait for a subagent you dispatched, end your turn; its report resumes you. Never end your turn while a command you started is still running: with no child running, your end of turn is read as your final report. Run a long command such as a test gate as a foreground Bash call with timeout 600000, its steps as separate foreground calls, or one step through scripts/bg.sh in this plugin, as references/handoff.md says." '{
   hookSpecificOutput: {
     hookEventName: "PreToolUse",
     permissionDecision: "deny",
