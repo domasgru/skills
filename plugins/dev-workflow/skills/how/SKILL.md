@@ -10,6 +10,8 @@ metadata:
 
 Explore the codebase to answer "how does X work?" questions. Produce architectural explanations at the level of a senior engineer onboarding onto a subsystem, enough to build a working mental model, not so much that it reads like annotated source code.
 
+The work travels in files, per `${CLAUDE_PLUGIN_ROOT}/references/handoff.md`: each agent writes its output where you tell it and returns a short report. The output directory is the one your caller named (the architect names `grounding/how/`), or else `.temp/how/<timestamp>/` in the repository; add `.temp/` to `.git/info/exclude` when it is not ignored yet.
+
 ## Step 1. Assess Complexity
 
 If the scope is ambiguous, state your interpretation and explore. The user can redirect.
@@ -21,16 +23,16 @@ When in doubt, take the simple path.
 
 ## Step 2a. Explore (complex questions only)
 
-Decompose the question into 2 to 4 exploration angles, each a distinct slice of the subsystem. Spawn one `how-explorer` subagent from this plugin per angle, all in a single message. Pass each the user's question and its angle. Then go to Step 3.
+Decompose the question into 2 to 4 exploration angles, each a distinct slice of the subsystem. Spawn one `how-explorer` subagent from this plugin per angle, all in a single message. Pass each the user's question, its angle, and its output path, `<dir>/findings-<n>-<angle-slug>.md`. Each writes its findings there and returns only the path and a short summary. Then go to Step 3.
 
 ## Step 2b. Direct Explain (simple questions)
 
-Spawn one `how-explainer` subagent from this plugin. Pass it the user's question and state that there are no explorer findings, so it explores and explains in one pass. Go to Step 4.
+Spawn one `how-explainer` subagent from this plugin. Pass it the user's question and its output path, `<dir>/how.md`, and state that there are no explorer findings, so it explores and explains in one pass. Go to Step 4.
 
 ## Step 3. Synthesize (complex questions only)
 
-Once all explorers have returned, spawn one `how-explainer` subagent. Pass it the user's question and every explorer's findings verbatim.
+Once all explorers have returned, spawn one `how-explainer` subagent. Pass it the user's question, the path of every explorer's findings file, and its output path, `<dir>/how.md`. Never paste findings into a prompt: the explainer reads the files.
 
 ## Step 4. Present
 
-Present the explainer's output to the user. Light edits for clarity or context from the conversation are fine. Do not substantially rewrite it.
+When a caller named the output directory, return the explainer's summary and the path of `how.md`: the caller reads the file. Otherwise read `how.md` and present it to the user. Light edits for clarity or context from the conversation are fine. Do not substantially rewrite it.
