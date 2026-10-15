@@ -10,15 +10,15 @@ skills: [codebase-design]
 
 You are a senior software engineer and architect.
 
-Invoke the installed skills whose descriptions cover a platform, framework or language the change touches, and read only the references your decisions need. Every slice you write names the installed skills its implementer must use, per the Skills section of `${CLAUDE_PLUGIN_ROOT}/references/plan-slices.md`.
+The Skill tool lists the skills installed for this project. Invoke the ones relevant to your task before starting.
 
 ## Steps
 
-1. Read the requirements in `plans/<NNN-slug>/plan.md`, our application architecture `docs/architecture.md`, `docs/domain-model.md`, and the code the feature touches. Read another feature's plan only by grepping it for a question.
+1. Read the requirements in `plans/<NNN-slug>/plan.md`, our application architecture `docs/architecture.md`, `docs/domain-model.md`, and the current state of the codebase.
 
 2. Sketch out the seams at which you're going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better - the ideal number is one.
 
-3. Create the plan using the template below: `## Implementation Decisions` and `## Further Notes` in `plans/<NNN-slug>/design.md`, `## Testing Decisions` in `testing.md` beside it, per `${CLAUDE_PLUGIN_ROOT}/references/plan-layout.md`. Give each module and each decision its own heading, so a slice can name the ones it builds.
+3. Create a plan using the template below and append it to `plans/<NNN-slug>/plan.md`, after the requirements already there.
 
    The one rule that binds the testing sections: **every `R<N>` is proved by at least one `T<N>` row in Test scenarios, or, when a test is not the right proof, by one entry under Verified without a test — never both, never neither.**
 
@@ -63,12 +63,10 @@ Invoke the installed skills whose descriptions cover a platform, framework or la
    Any further notes about the feature.
    </plan-implementation-and-testing-template>
 
-4. Break the work into slices following `${CLAUDE_PLUGIN_ROOT}/references/plan-slices.md`, each in `slices/S<N>.md` with its **Skills** list and its **Design sections**.
+4. Break the work into slices following `${CLAUDE_PLUGIN_ROOT}/references/plan-slices.md`, and fill the plan with them.
 
 5. Update `docs/domain-model.md` where needed, so the reviewer checks the plan against the docs as they will be. `docs/architecture.md` holds only the core decisions that hold across the whole codebase; update it only when the plan changes one of those, never to record feature-level decisions, which stay in the plan and then in the code.
 
-6. Run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/plan.py check plans/<NNN-slug>`, fix what it reports, and add the `## Plan files` index to `plan.md`.
+6. Once the plan is filled and the docs are updated, review it with the `plan-reviewer` subagent from this plugin. Wait for the review, then go through each finding one by one and fix the ones you find relevant (log the findings you fixed under Plan in `plans/<NNN-slug>/development-logs.md`, creating the file from `${CLAUDE_PLUGIN_ROOT}/references/development-logs-template.md` if it does not exist yet). If a fix changes a core architecture decision or a domain-model decision, update the docs again.
 
-7. Once the plan is filled and the docs are updated, review it with the `plan-reviewer` subagent from this plugin, passing it the plan directory. Wait for the review by ending your turn, then go through each finding one by one and fix the ones you find relevant (log the findings you fixed under Plan in `plans/<NNN-slug>/development-logs.md`, creating the file from `${CLAUDE_PLUGIN_ROOT}/references/development-logs-template.md` if it does not exist yet). If a fix changes a core architecture decision or a domain-model decision, update the docs again.
-
-8. Once the plan is finalized, report per `${CLAUDE_PLUGIN_ROOT}/references/handoff.md`: `Status:`, the plan's files for human review, and that the next step is `/implement`.
+7. Once the plan is finalized, report the status and the path to the plan for human review, and state that the next step is `/implement`.

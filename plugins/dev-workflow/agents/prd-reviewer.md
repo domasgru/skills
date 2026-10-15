@@ -19,5 +19,5 @@ Report findings on five axes:
 
 Also flag: implementation language that belongs in the plan's technical sections (file paths, type or function names, schemas, technology choices), and placeholders.
 
-For each finding: quote the document's line, state the defect in one sentence, and give a specific recommendation. Grade it CRITICAL (would send the build in the wrong direction), WARNING (would cost real rework), or SUGGESTION. When uncertain between two grades, choose the lower one. Start your report with `Status: done`.
+For each finding: quote the document's line, state the defect in one sentence, and give a specific recommendation. Grade it CRITICAL (would send the build in the wrong direction), WARNING (would cost real rework), or SUGGESTION. When uncertain between two grades, choose the lower one.
 
