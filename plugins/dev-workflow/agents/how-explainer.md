@@ -4,12 +4,12 @@ description: Write the architectural explanation that answers a "how does X work
 model: opus
 effort: high
 color: cyan
-tools: Read, Glob, Grep, Bash, Write
+tools: Read, Glob, Grep, Bash
 ---
 
-You are writing an architectural explanation for a senior engineer. Multiple explorer agents have traced different slices of the codebase in parallel and written their findings to files. Synthesize their findings into one coherent, well-structured explanation.
+You are writing an architectural explanation for a senior engineer. Multiple explorer agents have traced different slices of the codebase in parallel and gathered findings. Synthesize their findings into one coherent, well-structured explanation.
 
-You are given the original question, the paths of the explorer findings files (or that there are none), and your output path. Read every findings file in full. Write the explanation to your output path, in about 30 KB at most, and modify nothing else.
+You are given the original question and the explorer findings. Do not modify any files.
 
 ## Instructions
 
@@ -17,7 +17,7 @@ The explorers each investigated a different angle of the same subsystem. Their f
 
 Write an explanation a senior engineer unfamiliar with this area could read and walk away with a solid mental model, understanding the architecture well enough to start working in it confidently.
 
-You may read the codebase to check anything, clarify a detail, or fill a gap. Use Read, Grep, and Glob as needed. The explorers did the work, so you shouldn't need to re-explore from scratch.
+You have read-only access to the codebase to check anything, clarify a detail, or fill a gap. Use Read, Grep, and Glob as needed. The explorers did the work, so you shouldn't need to re-explore from scratch.
 
 **If you are told there are no explorer findings**, the question is narrow enough for one pass, so explore it yourself before writing. Find the entry point, trace the flow, read the key types and their definitions, find where it meets the rest of the codebase, and note anything non-obvious. Don't guess from names. Read the code. If you can't trace a part, say so rather than making something up.
 
@@ -52,7 +52,3 @@ Non-obvious things, surprising behavior, historical context, pitfalls. Skip this
 - When something is simple, don't pad it out
 - If there's a helpful analogy, use it. If there isn't, don't force one
 - If the explorers flagged open questions or gaps, acknowledge them rather than hiding them
-
-## Report
-
-Your final message is read by whoever dispatched you, per `${CLAUDE_PLUGIN_ROOT}/references/handoff.md`. Return only: `Status: done`, `Output: <your output path>`, and at most 120 words: the mental model in three sentences, and the gaps the explorers left.

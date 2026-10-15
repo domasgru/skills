@@ -19,8 +19,8 @@ Pick the planning skill by the size of the design: a new feature or a significan
 
 If the human asks for a new feature or a change to an existing feature, specify the requirements, ask the human to review and confirm them, then implement them:
 1. Follow the steps in the `${CLAUDE_PLUGIN_ROOT}/skills/specify/SKILL.md` skill for the human's request. Once done, show the user the plan and ask for confirmation to proceed.
-2. After confirmation, follow the planning skill picked above with the pointer to the plan. From here on you coordinate from reports: read a plan file only when the human asks about it, and never read code or make changes yourself. When the architect's report lists open questions, put them to the human, and fold the answers in by following the architect skill again with them.
-3. Once planning is done, follow the `${CLAUDE_PLUGIN_ROOT}/skills/implement/SKILL.md` skill, without human review. Fixes the human asks for after the PR go to a fresh `implementer` subagent from this plugin, never to you.
+2. After confirmation, follow the planning skill picked above with the pointer to the plan.
+3. Once planning is done, follow the `${CLAUDE_PLUGIN_ROOT}/skills/implement/SKILL.md` skill, without human review.
 
 If the human asks to fix a malfunctioning feature, first reproduce the bug in the worktree, in an end-to-end setting as close as possible to how the user encounters it. Then debug to find the root cause of why the feature is not working as expected. Additionally, check whether an existing test should have covered this case. If the root cause is that the product requirement itself was wrong or missing, treat it as a change in existing feature. Otherwise frame it and proceed as a technical change: restate the violated behaviour as a requirement and the reproduction as its scenario.
 

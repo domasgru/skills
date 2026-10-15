@@ -2,15 +2,15 @@
 
 # Architect design reference
 
-Shared by the architect, its two runners, the synthesizer and the verifier: the runner prompt, the design red flags, the design package template, and the principles cited by name.
+Shared by the architect orchestrator and its two runners: the runner prompt, the design red flags, the design package template, and the principles cited by name.
 
 ## Runner prompt
 
-The architect passes this to both parallel candidate runners during Phase B and fills in the variable inputs around it as paths: the task file, the plan, the Phase A grounding directory, and the path to write outputs. What matters is independence between candidates.
+The orchestrator passes this to both parallel candidate runners during Phase B and fills in the variable inputs around it as paths: the task file, the plan, the Phase A grounding directory, and the path to write outputs. What matters is independence between candidates.
 
-You are producing one candidate design in architect's parallel exploration. Read the task file you were given, the requirements in the plan, and the grounding's `index.md` and `how/how.md` in full. Read `why/why.md`, the sections of `docs/architecture.md` and `docs/domain-model.md` the index cites, and the sources it cites, wherever a design decision rests on them; open a raw findings file under `how/` or `why/` only for a question the index or `how.md` leaves open. Read the code the design touches, the parts a decision rests on. Work from those sources alone. Output a candidate design package: type sketch, function signatures, module map, and prose rationale shaped per the [Design package template](#design-package-template). Write it to your output path, and write nothing else.
+You are producing one candidate design in architect's parallel exploration. Read the task file you were given, the requirements in the plan, our application architecture `docs/architecture.md`, `docs/domain-model.md`, the grounding artifacts and the sources their index cites, in full wherever a design decision rests on them, and the current state of the codebase the design touches. Work from those sources alone. Output a candidate design package: type sketch, function signatures, module map, and prose rationale shaped per the [Design package template](#design-package-template). Write it to your output path, and write nothing else.
 
-Apply the following discipline. The synthesizer and the judge compare candidates on these axes to pick a base.
+Apply the following discipline. The orchestrator compares candidates on these axes to pick a base.
 
 - Caller's usage first. Write the README-style usage and two or three real call sites before the types, then derive the type sketch from them. The usage is the spec. The two must agree, so reconcile the sketch to the usage, not the reverse.
 - Name the data shape first, and choose its organizing structure per the **model-the-domain** principle.
@@ -24,7 +24,6 @@ Apply the following discipline. The synthesizer and the judge compare candidates
 - Idempotent state transitions where applicable, per the **make-operations-idempotent** principle. Ask what happens if the operation runs twice or crashes halfway.
 - Short call chains. If tracing the flow needs more than three files, flatten the hierarchy, per the **laziness-protocol** and **minimize-reader-load** principles.
 - Testable at one high seam. Name the seam the requirement scenarios run at, and give a test a handle on everything the design relies on that a test cannot wait for or provoke: the clock behind every timer and deadline, each boundary whose signals can be lost or late (a test withholds them or injects them), each call that can block (a test holds it).
-- Compact. Every agent after you reads the package whole: keep the prose tight and the sketch to the surfaces that carry a decision.
 
 You are one of two runners, each on a different model. Produce the best design your model can make. Don't hedge against the other. Differences between candidates are the signal used to pick a base and graft. Converging on a safe-looking middle defeats the exploration.
 
@@ -64,7 +63,7 @@ Remove it or move responsibility to the module that can complete the operation. 
 
 ## Design package template
 
-The type sketch and the prose that ships with it. Keep the prose to one page and the whole package readable in one Read call (under about 20k tokens, as `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/plan.py size <file>` estimates): every agent after you reads it whole, and an implementer reads the sections its slice names. A design that will not fit is a sign the feature is too large for one design; say so under Open questions and risks rather than cut what the design needs. Sentence-case headings, no boilerplate. Replace the italic notes with actual content. Give each module and each type sketch its own heading, so a slice can name the ones it builds.
+The type sketch and the prose that ships with it. Keep the prose to one page. Sentence-case headings, no boilerplate. Replace the italic notes with actual content.
 
 <design-package-template>
 ## Design
@@ -81,11 +80,11 @@ The type sketch and the prose that ships with it. Keep the prose to one page and
 
 *The recommended architecture. Data structures first. Then how data flows through the signatures. Name the load-bearing decisions. State which invariants are encoded in types, where validation lives, and what the system deliberately does not do. Judge interface depth explicitly. State what complexity the public surface hides, what remains exposed to callers, and why the interface is no larger than needed. Cite the principle behind each decision (e.g., `per boundary-discipline`). Don't restate it.*
 
-*The type sketch sits here as code blocks in the project's language: types, function signatures, class shapes, and module boundaries with `not implemented` bodies and pseudocode. One block with new types and signatures for small changes. For larger work, a module map, then the types and signatures of new and changed public surfaces and the load-bearing internal types, under one heading per module; bodies stay `not implemented` with pseudocode only where the logic is the decision. Name modules, not file paths: paths go stale.*
+*The type sketch sits here as code blocks in the project's language: types, function signatures, class shapes, and module boundaries with `not implemented` bodies and pseudocode. One block with new types and signatures for small changes. Module map plus type definitions for larger work. Name modules, not file paths: paths go stale.*
 
 ### Synthesis decision
 
-*Filled in by the synthesizer. A runner leaves it empty. Records which candidate became the base and why, the cross-judge's verdict, what was adapted from the other candidate, what was rejected and why, and any dropout or shared model.*
+*Filled in by the orchestrator. A runner leaves it empty. Records which candidate became the base and why, the cross-judge's verdict, what was adapted from the other candidate, and what was rejected and why.*
 
 ### Tradeoffs accepted
 

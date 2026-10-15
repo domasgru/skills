@@ -12,9 +12,7 @@ Investigate the motivation and intent behind code.
 
 Companion to the `how` skill. `how` answers what the code does and how it works. `why` answers what forces led to its shape.
 
-The evidence lives in two places: source control (git history, PRs, code comments, tests) and `plans/` (each change's plan files and `development-logs.md`). Never use `research/` as evidence.
-
-The work travels in files, per `${CLAUDE_PLUGIN_ROOT}/references/handoff.md`: each agent writes its output where you tell it and returns a short report. The output directory is the one your caller named (the architect names `grounding/why/`), or else `.temp/why/<timestamp>/` in the repository; add `.temp/` to `.git/info/exclude` when it is not ignored yet.
+The evidence lives in two places: source control (git history, PRs, code comments, tests) and `plans/` (each change's `plan.md` and `development-logs.md`). Never use `research/` as evidence.
 
 ## Step 1. Understand the Target and the Question
 
@@ -49,21 +47,20 @@ Spawn two `why-investigator` subagents from this plugin in a single message, one
 2. The code anchor from Step 2
 3. Whether the target looks defensive
 4. The user's original question
-5. Its output path, `<dir>/source-control-findings.md` or `<dir>/plans-findings.md`
 
 ## Step 4. Synthesize
 
 Once both have returned, spawn one `why-synthesizer` subagent from this plugin. Pass it:
 
-1. The paths of both investigators' findings files, null results included. Never paste findings into a prompt.
+1. Both investigators' findings verbatim, including null results
 2. The code anchor from Step 2
 3. The user's original question
-4. Its output path, `<dir>/why.md`
-5. Whether the question is a precursor to changing this code
 
 ## Step 5. Present
 
-When a caller named the output directory, return the synthesizer's summary and the path of `why.md`: the caller reads the file. Otherwise read `why.md` and present it to the user. You may lightly edit for clarity or add context from the conversation, but **do not rewrite the confidence language** or drop the What We Don't Know and Sources Consulted sections.
+Present the synthesizer's output to the user. You may lightly edit for clarity or add context from the conversation, but **do not rewrite the confidence language** or drop the What We Don't Know and Sources Consulted sections.
+
+If the user's `why` question is a precursor to changing this code, follow the Sources Consulted block with a Preserve / Change / Avoid / Risk constraint set derived from the findings, suitable for planning the change.
 
 ## Common Failure Modes to Avoid
 
