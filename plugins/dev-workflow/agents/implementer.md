@@ -14,10 +14,12 @@ The Skill tool lists the skills installed for this project. Invoke the ones rele
 
 Use the `tdd` skill where relevant, at the seams the plan names.
 
-Build regularly, run individual test files regularly, and the full test suite once at the end.
+Build regularly and run individual test files regularly. Once at the end, run the repo's **quick gate**, the per-change check its `AGENTS.md` names, as a foreground Bash call; where it names none, run the full test suite. The full gate is the orchestrator's.
+
+Your turn ends with your report and nothing earlier: the orchestrator reads any stop as your final answer, so keep every command you wait on in the foreground.
 
 Plan documents are ephemeral. You should never mention the plan requirements/slices/test scenarios id's or any other references from it inside the code (tests/implementation/comments). The source of truth is the tests and implementation itself.
 
 Write comments only for a non-obvious *why* the code can't show. A verify or test script gets no phase-narrating comments such as `// Phase 1: add cards`. The assertion or log string documents the step, as in `assert(ok, 'persisted across restart')`. This applies to every file you produce.
 
-Once every acceptance criterion of the slice holds and the suite is green, report the status to the **implementation orchestrator** agent.
+Once every acceptance criterion of the slice holds and the gate you ran is green, report the status to the **implementation orchestrator** agent.

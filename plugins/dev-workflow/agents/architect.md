@@ -4,7 +4,7 @@ description: Design a new feature or significant change through parallel design 
 model: fable
 effort: xhigh
 color: blue
-tools: Read, Glob, Grep, Bash, Edit, Write, Agent, Skill
+tools: Read, Glob, Grep, Bash, Edit, Write, Agent, SendMessage, Skill
 skills: [codebase-design]
 ---
 
@@ -26,9 +26,9 @@ Read the requirements in `plans/<NNN-slug>/plan.md`, our application architectur
 
 Build a real mental model of every system the new code touches, as grounding artifacts in `plans/<NNN-slug>/.temp/architect/grounding/`. Start from empty directories: delete what an earlier run left in `grounding/` and in `checks/` beside it.
 
-**Existing code.** Run the **how** skill over the relevant subsystems by following `${CLAUDE_PLUGIN_ROOT}/skills/how/SKILL.md`. Naming a file isn't grounding. Produce the traced model `how` prescribes. If the design redefines ownership or layering, also run the **why** skill on the existing shape by following `${CLAUDE_PLUGIN_ROOT}/skills/why/SKILL.md`, as a precursor to changing that code, so the rationale becomes a constraint, not a guess. Where those skills present their output to the user, write it to `grounding/how.md` and `grounding/why.md` instead, verbatim: the `how` explanation and the `why` answer with its Preserve / Change / Avoid / Risk constraint set. Skip the `how` and `why` runs only when the work is genuinely greenfield with no surrounding system to integrate.
+**Existing code.** Run the **how** skill over the relevant subsystems by following `${CLAUDE_PLUGIN_ROOT}/skills/how/SKILL.md`. Naming a file isn't grounding. Produce the traced model `how` prescribes. If the design redefines ownership or layering, also run the **why** skill on the existing shape by following `${CLAUDE_PLUGIN_ROOT}/skills/why/SKILL.md`, as a precursor to changing that code, so the rationale becomes a constraint, not a guess. Name `grounding/` as each skill's output directory, so its own agents write `grounding/how.md` and `grounding/why.md` (the `why` answer with its Preserve / Change / Avoid / Risk constraint set) and you receive their paths. These runs are your account of the code: read a source file yourself only to settle a question their output leaves open, and start them before reading anything beyond the requirements and the two docs. Skip the `how` and `why` runs only when the work is genuinely greenfield with no surrounding system to integrate.
 
-**Everything else the design rests on**: research notes under `research/`, product docs, platform behaviour. Read every source that bears on a design question yourself, in full: picking the base, grafting and verifying all turn on details a summary drops. A platform claim that a design decision will rest on and that no source settles is a **probe**: write the smallest program or command sequence that would show it false, in `grounding/probes/`, run it on this machine, and leave the machine as you found it.
+**Everything else the design rests on**: research notes under `research/`, product docs, platform behaviour. Read every such source that bears on a design question yourself, in full: picking the base, grafting and verifying all turn on details a summary drops. A platform claim that a design decision will rest on and that no source settles is a **probe**: write the smallest program or command sequence that would show it false, in `grounding/probes/`, run it on this machine, and leave the machine as you found it.
 
 Then write `grounding/index.md`, the artifact the runners, the judge and the test planner start from:
 
@@ -109,7 +109,7 @@ If verification surfaces a problem the arena did not catch, either the Frame was
 
 Dispatch one `architect-test-planner` with the paths to the plan and the grounding directory. In a fresh context that knows the design only from the plan, it appends `## Testing Decisions` and `## Slices` and returns its **design findings**: a requirement no seam of the design can observe, a scenario the signatures cannot drive, a handle a test needs that the design lacks, a contradiction.
 
-Each finding is Verify evidence. Fix the design in the plan, carrying each fix through every section it touches per the **redesign-from-first-principles** principle, or reject the finding with its reason for the log. When you changed the design, dispatch a test planner again, naming what changed, to bring its sections back in line; its report may hold new findings. Phase C is done when the testing sections match the design as it stands: the latest report held no finding, or you rejected each one.
+Each finding is Verify evidence. Fix the design in the plan, carrying each fix through every section it touches per the **redesign-from-first-principles** principle, or reject the finding with its reason for the log. When you changed the design, continue the same test planner with SendMessage, naming the sections that changed: it keeps what it already read, so it re-reads only those, brings its sections back in line and reports any new findings. The test planner makes two passes at most. After the second, align any testing row the design still contradicts yourself, and fix or reject its findings without a third pass. Phase C is done when the testing sections match the design as it stands and every finding is fixed or rejected.
 
 Then make the design's Next implementation step agree with the first slice.
 

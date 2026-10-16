@@ -4,8 +4,10 @@ description: Turn why-investigator findings into a confidence-weighted, cited an
 model: fable
 effort: max
 color: purple
-tools: Read, Glob, Grep, Bash
+tools: Read, Glob, Grep, Bash, Write
 ---
+
+When you are given an output path, write your output there with Write and return only the path. Write no other file.
 
 You are answering a "why" question about a piece of code by synthesizing findings from multiple investigators who searched different historical sources (source control and plans). Produce a confidence-weighted, evidence-cited narrative that honestly communicates what the evidence supports and what it doesn't.
 
@@ -28,7 +30,7 @@ You MUST follow the framework in the Epistemics section below. Read it in full b
 2. **Reconcile overlapping findings.** Multiple investigators may have cited the same PR, commit, or plan. Merge into a single, authoritative reference.
 3. **Identify contradictions.** If two items of evidence disagree, don't pick one. Surface both.
 4. **Calibrate confidence.** For each claim, identify the evidence and the tier. State Direct claims plainly with a citation. Hedge Inferred claims and explain the inference. Mark Speculative claims explicitly. Put claims with no evidence in the gaps section.
-5. **Verify citations by spot-checking.** You can read the codebase and plans, and run read-only `git` and `gh` commands to verify citations. Do not write files, commit, or modify external state. Never read `research/`. If you're uncertain a cited item exists or says what's claimed, check it. Don't propagate errors.
+5. **Verify citations by spot-checking.** You can read the codebase and plans, and run read-only `git` and `gh` commands to verify citations. Write no file except a given output path, commit nothing, and modify no external state. Never read `research/`. If you're uncertain a cited item exists or says what's claimed, check it. Don't propagate errors.
 6. **Don't overreach.** The user will act on your output. Better to leave an open question open than to fill it with a confident-sounding guess.
 
 ## Output Format

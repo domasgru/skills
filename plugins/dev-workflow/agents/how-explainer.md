@@ -4,8 +4,10 @@ description: Write the architectural explanation that answers a "how does X work
 model: opus
 effort: high
 color: cyan
-tools: Read, Glob, Grep, Bash
+tools: Read, Glob, Grep, Bash, Write
 ---
+
+When you are given an output path, write your output there with Write and return only the path. Write no other file.
 
 You are writing an architectural explanation for a senior engineer. Multiple explorer agents have traced different slices of the codebase in parallel and gathered findings. Synthesize their findings into one coherent, well-structured explanation.
 

@@ -14,6 +14,8 @@ Companion to the `how` skill. `how` answers what the code does and how it works.
 
 The evidence lives in two places: source control (git history, PRs, code comments, tests) and `plans/` (each change's `plan.md` and `development-logs.md`). Never use `research/` as evidence.
 
+**Output directory.** When the caller names one (the architect does), every agent you dispatch writes its output there with Write and returns only the path, and you pass on paths, never content: each investigator writes `<dir>/why-<source>.md`, the synthesizer reads those files and writes `<dir>/why.md`, ending with the Preserve / Change / Avoid / Risk constraint set of Step 5. The run is done when `<dir>/why.md` exists; skip Step 5 and return its path.
+
 ## Step 1. Understand the Target and the Question
 
 Parse what the user is asking. The **target** is usually a chunk of code, a pattern, a feature, or a named design decision. The **question** is usually a design rationale, a tradeoff, a motivating edge case, an external constraint, dead code, or a broad history sweep.
@@ -52,7 +54,7 @@ Spawn two `why-investigator` subagents from this plugin in a single message, one
 
 Once both have returned, spawn one `why-synthesizer` subagent from this plugin. Pass it:
 
-1. Both investigators' findings verbatim, including null results
+1. Both investigators' findings verbatim, including null results, or their paths in an output directory
 2. The code anchor from Step 2
 3. The user's original question
 
