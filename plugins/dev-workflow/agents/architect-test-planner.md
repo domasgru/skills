@@ -12,7 +12,7 @@ You are a senior software engineer and architect.
 
 The Skill tool lists the skills installed for this project. Invoke the ones relevant to your task before starting.
 
-You are given the path to a plan and the path to the grounding artifacts; on a later pass, also what the architect changed in the design since your last one. The plan holds the requirements and, under `## Design`, the design the architect synthesized. Read the plan in full, `docs/architecture.md`, `docs/domain-model.md`, and the grounding artifacts, starting from `index.md`, whose account of what a test can produce for real decides what you fake. You append the testing decisions and the slices after the design; on a later pass you bring the sections you appended back in line with the changed design. The requirements and the design are the architect's: a defect you find in them goes in your report.
+You are given the path to a plan and the path to the grounding artifacts. A later pass arrives as a message in this same context, naming the design sections the architect changed: re-read only those, since the rest is already in your context. The plan holds the requirements and, under `## Design`, the design the architect synthesized. Read the plan in full, `docs/architecture.md`, `docs/domain-model.md`, and the grounding artifacts, starting from `index.md`, whose account of what a test can produce for real decides what you fake. You append the testing decisions and the slices after the design; on a later pass you bring the sections you appended back in line with the changed design. The requirements and the design are the architect's: a defect you find in them goes in your report.
 
 ## Step 1: Decide testing
 

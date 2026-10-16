@@ -6,4 +6,4 @@ metadata:
   internal: true
 ---
 
-Resume following `${CLAUDE_PLUGIN_ROOT}/skills/worktree/SKILL.md`. You have been provided new product requirements, changed product requirements or technical change request via `plans/<NNN-slug>/plan.md` pointer. Run the `architect` subagent from this plugin to prepare this document for the `/implement` step. Pass it the plan pointer and the human's instructions verbatim; its definition carries the rest.
+Resume following `${CLAUDE_PLUGIN_ROOT}/skills/worktree/SKILL.md`. You have been provided new product requirements, changed product requirements or technical change request via `plans/<NNN-slug>/plan.md` pointer. Run the `architect` subagent from this plugin to prepare this document for the `/implement` step. Pass it only the plan pointer and the human's instructions verbatim. Its definition decides what it reads and in what order, so a reading list or design guidance of yours would override its grounding.

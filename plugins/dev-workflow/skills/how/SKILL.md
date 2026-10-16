@@ -14,6 +14,8 @@ Explore the codebase to answer "how does X work?" questions. Produce architectur
 
 If the scope is ambiguous, state your interpretation and explore. The user can redirect.
 
+**Output directory.** When the caller names one (the architect does), every agent you dispatch writes its output there with Write and returns only the path, and you pass on paths, never content: each explorer writes `<dir>/how-<angle>.md`, the explainer reads those files and writes `<dir>/how.md`. The run is done when `<dir>/how.md` exists; skip Step 4 and return its path.
+
 - **Simple** (a single module, a small utility, a narrow question such as "how does function X work"): no explorers. One explainer explores and explains in a single pass. Go to Step 2b.
 - **Complex** (a subsystem spanning multiple files or services, a cross-cutting feature, a full architectural overview): spawn parallel explorers first, then hand off to the explainer. Go to Step 2a.
 
@@ -29,7 +31,7 @@ Spawn one `how-explainer` subagent from this plugin. Pass it the user's question
 
 ## Step 3. Synthesize (complex questions only)
 
-Once all explorers have returned, spawn one `how-explainer` subagent. Pass it the user's question and every explorer's findings verbatim.
+Once all explorers have returned, spawn one `how-explainer` subagent. Pass it the user's question and every explorer's findings verbatim, or their paths in an output directory.
 
 ## Step 4. Present
 

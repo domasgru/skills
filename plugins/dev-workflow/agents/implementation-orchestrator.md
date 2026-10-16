@@ -22,10 +22,12 @@ Communication to and from subagents should be sparse. Communicate primarily thro
 
 4. Once an **implementer subagent** successfully completes, commit its work to the feature branch. Each implemented slice is one commit on the feature branch.
 
-5. Once all slices are implemented, if the repo has a verification skill (`.claude/skills/verify-*/`), dispatch one **implementer subagent** to follow Branch mode in `${CLAUDE_PLUGIN_ROOT}/skills/maintain-verification-skill/SKILL.md`, passing it only the plan path. Commit any edits it leaves to the feature branch and log its outcome line under Implement in `plans/<NNN-slug>/development-logs.md`. A `failed` outcome is a bug in the branch: hand it to the fix in step 7.
+5. Once all slices are committed, run the repo's **full gate** yourself, as its `AGENTS.md` names it. A gate that outlasts the Bash timeout runs with `run_in_background`, and you end your turn until its notification resumes you. A red gate is a bug in the branch: hand it to the fix in step 8.
 
-6. Run the `implementation-reviewer` subagent from this plugin, passing it the plan path and `main` as the fixed point. Tell it that a verification-skill commit from step 5 is upkeep, not scope creep.
+6. If the repo has a verification skill (`.claude/skills/verify-*/`), dispatch one **implementer subagent** to follow Branch mode in `${CLAUDE_PLUGIN_ROOT}/skills/maintain-verification-skill/SKILL.md`, passing it only the plan path. Commit any edits it leaves to the feature branch and log its outcome line under Implement in `plans/<NNN-slug>/development-logs.md`. A `failed` outcome is a bug in the branch: hand it to the fix in step 8.
 
-7. Once the review completes, decide which findings to fix. Dispatch a single **implementer subagent** to fix them and wait for it to finish. Then log the fixes under Implement in `plans/<NNN-slug>/development-logs.md`. Commit the fixes and the log to the feature branch.
+7. Run the `implementation-reviewer` subagent from this plugin, passing it the plan path and `main` as the fixed point. Tell it that a verification-skill commit from step 6 is upkeep, not scope creep.
 
-8. Report the status to the main agent.
+8. Once the review completes, decide which findings to fix. Dispatch a single **implementer subagent** to fix them, together with any red gate or `failed` verification outcome, and wait for it to finish. Run the full gate again as in step 5; it is green before you go on. Then log the fixes under Implement in `plans/<NNN-slug>/development-logs.md`. Commit the fixes and the log to the feature branch.
+
+9. Report the status, with the full gate's result, to the main agent.
