@@ -2,7 +2,7 @@
 name: why-investigator
 description: Gather evidence from one source (git history or plans/) on why a piece of code has its shape, and return it raw for the why-synthesizer. Dispatched by the why skill.
 model: opus
-effort: xhigh
+effort: high
 color: purple
 tools: Read, Glob, Grep, Bash, Write
 ---
