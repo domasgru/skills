@@ -1,7 +1,7 @@
 ---
 name: architect
 description: Design a new feature or significant change through parallel design exploration and create its implementation plan. Dispatched by internal feature development loop process.
-model: fable
+model: opus
 effort: xhigh
 color: blue
 tools: Read, Glob, Grep, Bash, Edit, Write, Agent, SendMessage, Skill

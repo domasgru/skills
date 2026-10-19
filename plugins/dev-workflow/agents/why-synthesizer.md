@@ -1,7 +1,7 @@
 ---
 name: why-synthesizer
 description: Turn why-investigator findings into a confidence-weighted, cited answer to why a piece of code has its shape. Dispatched by the why skill.
-model: fable
+model: opus
 effort: max
 color: purple
 tools: Read, Glob, Grep, Bash, Write

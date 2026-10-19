@@ -1,7 +1,7 @@
 ---
 name: architect-test-planner
 description: Decide how the architect's synthesized design is tested and break the work into slices, appending both to the plan, and report the design findings that turn up. Dispatched by the architect agent.
-model: fable
+model: opus
 effort: xhigh
 color: cyan
 tools: Read, Glob, Grep, Bash, Edit, Write, Skill
