@@ -16,6 +16,8 @@ Write short sentences, get rid of extra words. Avoid putting multiple thoughts i
 
 2. Read `docs/product-overview.md` and `docs/domain-model.md`, understand the high-level idea of the product and the feature.
 
+   The existing tests are the source of truth for the behaviour the product already has. Dispatch a subagent to read the tests in the feature's area and report the behaviour they already cover. Ask the user only about behaviour that is new or changes.
+
 3. Interview the user relentlessly until you reach a shared complete understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.
 
    Work the tree in **rounds**. The **frontier** is every decision whose prerequisites are already settled: the questions you can ask _now_ without guessing at answers you haven't heard yet. Ask the whole frontier in one round: number each question and give your recommended answer. Then wait for the user's answers before the next round.
@@ -48,7 +50,7 @@ Write short sentences, get rid of extra words. Avoid putting multiple thoughts i
    - **Cross-reference with code.** When the user states how something works today, check whether the code agrees, and surface the contradiction if it does not.
    - **Offer to record product decisions sparingly.** A decision that outlives this feature, that a future reader would wonder about, belongs in the overview: offer it there and move on. Architecture decisions are the `plan` and `architect` skills' to offer; leave them.
 
-5. Write the product requirements using the template below, at `plans/<NNN-slug>/plan.md`. One feature per plan: a coherent capability a user would recognise, complete enough to demo on its own. Write in product language only. Every section is required; write "None" rather than deleting a heading.
+5. Write the product requirements using the template below, at `plans/<NNN-slug>/plan.md`. One feature per plan: a coherent capability a user would recognise, complete enough to demo on its own. Write in product language only. Requirements cover only behaviour that is new or changes. Behaviour the existing tests already cover, and that this feature leaves as it is, stays out. Every section is required; write "None" rather than deleting a heading.
 
 6. Dispatch **one** `prd-reviewer` subagent from this plugin, never reviewing the draft yourself. Pass it **only** the path to `plans/<NNN-slug>/plan.md` and the path to `docs/product-overview.md`. Then go through its findings one by one and decide which to accept. Dispatch a **generic** subagent to apply the accepted findings, and wait for it to finish. Never end your turn while it runs. Check that the plan holds each change. Then create `plans/<NNN-slug>/development-logs.md` from `${CLAUDE_PLUGIN_ROOT}/references/development-logs-template.md` and record the applied changes under Specify.
 
