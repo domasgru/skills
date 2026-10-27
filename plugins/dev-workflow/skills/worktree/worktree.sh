@@ -21,16 +21,50 @@ base() {
   else echo "warning: fetch failed, branching from local main" >&2; echo main; fi
 }
 
+# Removes every worktree whose PR is finished: merged, with its branch, or closed unmerged, keeping
+# the branch since its commits are on no other branch. A worktree with uncommitted or untracked
+# changes stays. Never fails, so start always goes on.
 prune() {
-  git -C "$root" worktree prune
+  git -C "$root" worktree prune || true
   for wt in "$dir"/*/; do
     [ -d "$wt" ] || continue
     case "$(pwd -P)/" in "$wt"*) continue;; esac    # never remove the worktree we run from
-    branch=$(git -C "$wt" branch --show-current)
+    wt=${wt%/}
+    branch=$(git -C "$wt" branch --show-current 2>/dev/null || true)
     [ -n "$branch" ] || continue
-    [ "$(gh pr view "$branch" --json state --jq .state 2>/dev/null)" = MERGED ] || continue
-    git -C "$root" worktree remove "$wt" && git -C "$root" branch -D "$branch" >/dev/null \
-      && echo "pruned $branch" >&2 || echo "skipped $branch (dirty or in use)" >&2
+    state=$(gh pr view "$branch" --json state --jq .state 2>/dev/null || true)
+    case "$state" in MERGED|CLOSED) ;; *) continue;; esac
+    physical=$(cd "$wt" && pwd -P) || continue
+    if ! error=$(git -C "$root" worktree remove "$wt" 2>&1); then skipped "$wt" "$branch" "$error"; continue; fi
+    if [ "$state" = MERGED ]; then
+      git -C "$root" branch -D "$branch" >/dev/null 2>&1 || echo "warning: could not delete $branch" >&2
+      echo "pruned $branch (merged)" >&2
+    else echo "pruned $branch (closed; branch kept)" >&2; fi
+    remove_derived_data "$physical"
+  done
+}
+
+# Says why a finished worktree stayed: its uncommitted changes, else git's error.
+skipped() {
+  local changes
+  changes=$(git -C "$1" status --porcelain 2>/dev/null || true)
+  if [ -n "$changes" ]; then
+    echo "skipped $2: $(printf '%s\n' "$changes" | wc -l | tr -d ' ') uncommitted change(s)" >&2
+    printf '%s\n' "$changes" | head -5 | sed 's/^/    /' >&2
+  else echo "skipped $2: $3" >&2; fi
+}
+
+# Deletes the Xcode DerivedData folders of projects and packages inside the removed worktree $1,
+# 1-2 GB each. Folders without a WorkspacePath belong to Xcode itself and stay.
+remove_derived_data() {
+  local data="$HOME/Library/Developer/Xcode/DerivedData" folder workspace
+  [ -d "$data" ] || return 0
+  for folder in "$data"/*/; do
+    workspace=$(plutil -extract WorkspacePath raw -o - "$folder/info.plist" 2>/dev/null) || continue
+    case "$workspace" in
+      "$1"|"$1"/*) rm -rf "$folder" && echo "  removed DerivedData $(basename "$folder")" >&2 \
+                     || echo "warning: could not remove $folder" >&2 ;;
+    esac
   done
 }
 
