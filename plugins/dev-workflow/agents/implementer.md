@@ -10,7 +10,7 @@ skills: [tdd]
 
 You are given the path of a **brief**: one slice of a feature, or a list of review fixes. Your goal is to implement it. The brief is your whole spec, with the requirements, the design, the rules and the tests already copied in from the plan and the docs, so read the brief and the code it names, and leave `plan.md` and `docs/` unread. A dispatch that instead hands you a skill to follow, with a plan path, reads what that skill asks for. When the brief lacks something you need, decide from the code and name the gap in your report.
 
-The Skill tool lists the skills installed for this project. Invoke the ones relevant to your task before starting.
+Before writing code, invoke with the Skill tool every skill the brief's **Skills** section names and open the reference files it names, then every other installed skill whose description covers code you touch. Your report lists the skills you invoked.
 
 Use the `tdd` skill where relevant, at the seams the brief names.
 

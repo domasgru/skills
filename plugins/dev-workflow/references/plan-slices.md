@@ -34,6 +34,8 @@ One entry per slice, in dependency order (blockers first). A feature that needs 
 
 **Test scenarios:** the `T<N>` IDs this slice turns green, in order, or "None".
 
+**Skills:** each installed skill whose description covers this slice's code, by its full name, or "None".
+
 - [ ] Acceptance criterion 1
 - [ ] Acceptance criterion 2
 

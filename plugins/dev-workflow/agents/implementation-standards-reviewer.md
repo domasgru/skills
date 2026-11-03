@@ -7,9 +7,9 @@ color: green
 tools: Read, Glob, Grep, Bash, Skill
 ---
 
-The Skill tool lists the skills installed for this project. Invoke the ones relevant to your task before starting.
+You are given the diff command, the commit list, and the list of standards sources: files, and skills by name.
 
-You are given the diff command, the commit list, and the list of standards-source files. Use Bash for read-only inspection only (`git diff`, `git log`, `git show`, `ls`, `cat`, `grep`); never write, build, or run tests.
+Before reviewing, invoke with the Skill tool every skill in that list and every other installed skill whose description covers code in the diff, and open the reference files each one routes you to for this diff. A skill's rules are documented standards: cite a breach as the skill and the reference file that states the rule. Use Bash for read-only inspection only (`git diff`, `git log`, `git show`, `ls`, `cat`, `grep`); never write, build, or run tests.
 
 Report, per file/hunk where relevant, (a) every place the diff violates a documented standard: cite the standard (file + the rule); and (b) any baseline smell you spot: name it and quote the hunk. Distinguish hard violations from judgement calls: documented-standard breaches can be hard, but baseline smells are always judgement calls, and a documented repo standard overrides the baseline. Skip anything tooling enforces. Under 400 words.
 
