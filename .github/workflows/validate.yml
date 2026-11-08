@@ -25,3 +25,6 @@ jobs:
             (cd "$dir" && claude plugin validate . --strict)
             echo "::endgroup::"
           done
+
+      - name: Test the UI test lock hook
+        run: bash plugins/macos-dev-workflow/hooks/test-block-unlocked-ui-tests.sh
