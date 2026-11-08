@@ -36,7 +36,7 @@ Look for the originating plan, in this order:
 
 ### 3. Identify the standards sources
 
-Anything in the repo that documents how code should be written, such as `CODING_STANDARDS.md`, `docs/architecture.md` and `docs/domain-model.md`. For the tests, also `${CLAUDE_PLUGIN_ROOT}/.claude/skills/tdd/tests.md` and `${CLAUDE_PLUGIN_ROOT}/.claude/skills/tdd/mocking.md`.
+Anything in the repo that documents how code should be written, such as `CODING_STANDARDS.md`, `docs/architecture.md` and `docs/domain-model.md`. For the tests, also `${CLAUDE_PLUGIN_ROOT}/.claude/skills/tdd/tests.md` and `${CLAUDE_PLUGIN_ROOT}/.claude/skills/tdd/mocking.md`. Every installed skill whose description covers code in the diff is a standards source too, named by its full skill name; the slice briefs in `plans/<NNN-slug>/.temp/slices/` list them under **Skills**.
 
 On top of whatever the repo documents, the Standards axis always carries the **smell baseline** defined in the `implementation-standards-reviewer` subagent from this plugin: a fixed set of Fowler code smells that applies even when a repo documents nothing.
 
@@ -45,7 +45,7 @@ On top of whatever the repo documents, the Standards axis always carries the **s
 **Standards sub-agent** (the `implementation-standards-reviewer` subagent from this plugin) prompt should include:
 
 - The full diff command and commit list.
-- The list of standards-source files you found in step 3.
+- The standards sources you found in step 3: the files, and the skills by full name.
 
 **Plan sub-agent** (the `implementation-plan-reviewer` subagent from this plugin) prompt should include:
 

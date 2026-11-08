@@ -21,6 +21,10 @@ The part of the plan's design this slice builds, copied: the types, signatures a
 
 Each rule from `docs/architecture.md`, `docs/domain-model.md` or the repo's standards that this slice's code can break, quoted with its section, e.g. a threading rule for a new queue, a dependency rule for a new import, a naming rule for a new type. Only the rules this slice can break.
 
+## Skills
+
+Each skill on the slice's **Skills** line in the plan, by its full name, plus any installed skill whose description covers code this slice touches. Under each, the reference files inside it that this slice's code needs, where its entry file routes to them by task. "None" when no installed skill covers it.
+
 ## Tests
 
 Each `T<N>` row this slice turns green, copied whole: its seam, setup, action and expected result. Then each check under Verified without a test that this slice owns.

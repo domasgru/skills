@@ -1,0 +1,47 @@
+{
+  "comment": "Which Apple-platform skill a changed file requires. A file requires a skill when its path matches one of the rule's path regexes or its content matches one of the rule's content regexes. Read by swift_skills.py.",
+  "rules": [
+    {
+      "skill": "swift-concurrency",
+      "covers": "async/await, actors, @MainActor, Sendable, tasks, locks, data races",
+      "paths": [],
+      "content": ["\\basync\\b", "\\bawait\\b", "\\bactor\\b", "@MainActor", "\\bSendable\\b", "\\bTask\\s*[{(.]", "\\bnonisolated\\b", "^import (Synchronization|Dispatch)\\b", "\\bDispatchQueue\\b", "\\bMutex\\b"]
+    },
+    {
+      "skill": "swift-testing-pro",
+      "covers": "Swift Testing tests: @Test, #expect, suites, parameterized tests",
+      "paths": [],
+      "content": ["^import Testing\\b"]
+    },
+    {
+      "skill": "axiom-swiftui",
+      "covers": "SwiftUI views, state, navigation, layout, animation, gestures, view performance",
+      "paths": [],
+      "content": ["^import SwiftUI\\b"]
+    },
+    {
+      "skill": "axiom-macos",
+      "covers": "AppKit, windows, menus, sandboxing, entitlements, distribution, macOS-specific SwiftUI",
+      "paths": ["\\.entitlements$", "(^|/)Info\\.plist$"],
+      "content": ["^import (AppKit|Cocoa)\\b"]
+    },
+    {
+      "skill": "axiom-data",
+      "covers": "persistence: SwiftData, Core Data, GRDB, SQLite, CloudKit, Codable, migrations",
+      "paths": ["\\.xcdatamodeld?(/|$)"],
+      "content": ["^import (SwiftData|CoreData|GRDB|SQLite3?|CloudKit)\\b"]
+    },
+    {
+      "skill": "axiom-graphics",
+      "covers": "Metal, shaders, RealityKit, SceneKit, 3D content",
+      "paths": ["\\.metal$", "\\.usdz?$"],
+      "content": ["^import (Metal|MetalKit|RealityKit|SceneKit)\\b"]
+    }
+  ],
+  "on_demand": [
+    {
+      "skill": "axiom-apple-docs",
+      "covers": "Apple's own documentation for an API, or a Swift compiler diagnostic explained"
+    }
+  ]
+}
