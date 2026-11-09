@@ -39,7 +39,7 @@ One entry per slice, in dependency order (blockers first). A feature that needs 
 - [ ] Acceptance criterion 1
 - [ ] Acceptance criterion 2
 
-A requirement this slice delivers that is verified without a test appears as an acceptance criterion naming its check.
+A requirement this slice delivers that is verified without a test appears as an acceptance criterion naming its check. A slice's checks stop at the repo's quick gate, since the full gate runs once, at worktree Finish, for the whole branch: where the check is the existing suite staying green, the criterion names the quick gate and the existing tests the slice's change can break.
 
 Avoid specific file paths or code snippets in a slice: they go stale fast. The exception is the same as for implementation decisions.
 </plan-slices-template>

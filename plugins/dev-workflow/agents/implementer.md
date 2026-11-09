@@ -14,7 +14,7 @@ Before writing code, invoke with the Skill tool every skill the brief's **Skills
 
 Use the `tdd` skill where relevant, at the seams the brief names.
 
-Build regularly and run individual test files regularly. Once at the end, run the repo's **quick gate**, the per-change check its `AGENTS.md` names, as a foreground Bash call; where it names none, run the full test suite. The full gate runs at worktree Finish.
+Build regularly and run individual test files regularly. Once at the end, run the repo's **quick gate**, the per-change check its `AGENTS.md` names, as a foreground Bash call; where it names none, run the full test suite. The full gate runs once, at worktree Finish, whatever the brief says: a brief criterion that names it is met by the quick gate and the existing tests your change can break, each run on its own, and your report says so.
 
 Your turn ends with your report and nothing earlier: the dispatching agent reads any stop as your final answer, so keep every command you wait on in the foreground.
 
