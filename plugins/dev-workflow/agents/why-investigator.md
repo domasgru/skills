@@ -53,11 +53,11 @@ Don't synthesize or form a final opinion on "the why." Collect the raw material 
 ### What this source contains
 
 - Commit history (messages, dates, authors, diffs)
-- PR descriptions, review comments, and discussion threads (via `gh`)
+- PR descriptions, review comments, and discussion threads (via `gh`), for older commits that name a PR
 - Inline code comments, TODOs, FIXMEs, deprecation notes
 - Tests. Names and assertions often encode the edge cases that motivated a change
 - Related files modified in the same commits (co-change signal)
-- Branch names. Feature work lands on `feature/<NNN-slug>` branches, named after their `plans/<NNN-slug>/` directory
+- Branch names. Feature work is built on `feature/<NNN-slug>` branches, named after their `plans/<NNN-slug>/` directory, and lands on `main` as one squashed commit whose `Squash-of` trailer names the branch and the tip it squashed
 
 The most trustworthy source, tied directly to the code, and the most complete. Everything that went through the repo should be here. The contents of `plans/` belong to the Plans investigator.
 
@@ -84,14 +84,17 @@ git show <hash>
 # Commits between two points affecting this file
 git log <old>..<new> -p -- <file>
 
-# Branches containing a commit (reveals the feature/<NNN-slug> it came from)
-git branch -a --contains <hash>
+# The feature/<NNN-slug> a squashed commit came from, and the tip it squashed
+git log -1 --format='%(trailers:key=Squash-of,valueonly)' <hash>
+
+# That branch's slice commits
+git log --oneline <hash>^..<tip>
 ```
 
-For each substantive commit, pull the PR context:
+Each commit's message holds what shipped and its Merge Danger. An older commit names a PR in its subject as `(#123)`; pull that context:
 
 ```bash
-# Find the PR number from the merge commit or branch
+# Find the PR number
 git log -1 --format=%B <hash>
 
 # Full PR context: body, review comments, linked issues
@@ -120,7 +123,7 @@ rg -l '<symbol>' --glob '*Tests*'
 
 ### Common pitfalls
 
-- **Squash-merge flatlands.** If the repo squashes PRs, individual commits in the branch history are lost. Fall back to PR body and comments.
+- **Squash-merge flatlands.** `main` holds one commit per feature, so the slice commits live only on the branch the `Squash-of` trailer names; `git fetch origin <branch>` when it is not local. Fall back to the commit body and, for an older commit, its PR body and comments.
 - **Misleading commit messages.** "Small refactor" sometimes hides an intentional behavior change. Look at the diff, not the message.
 - **Cargo-culted patterns.** The author may have copied a pattern without understanding why. Check if the pattern originated earlier in the codebase and investigate *that* commit.
 - **Bot commits and auto-merges.** Dependabot, Renovate, and automated backports usually don't carry motivation. Skip them when trying to find intent.

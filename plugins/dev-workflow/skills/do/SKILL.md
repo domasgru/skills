@@ -20,14 +20,14 @@ Pick the planning skill by the size of the design: a new feature or a significan
 If the human asks for a new feature or a change to an existing feature, specify the requirements, ask the human to review and confirm them, then implement them:
 1. Follow the steps in the `${CLAUDE_PLUGIN_ROOT}/skills/specify/SKILL.md` skill for the human's request. Once done, show the user the plan and ask for confirmation to proceed.
 2. After confirmation, follow the planning skill picked above with the pointer to the plan.
-3. Once planning is done, follow the `${CLAUDE_PLUGIN_ROOT}/skills/implement/SKILL.md` skill, without human review.
+3. Once planning is done, follow the `${CLAUDE_PLUGIN_ROOT}/skills/implement/SKILL.md` skill, without human review until its Finish asks for approval to merge.
 
 If the human asks to fix a malfunctioning feature, first reproduce the bug in the worktree, in an end-to-end setting as close as possible to how the user encounters it. Then debug to find the root cause of why the feature is not working as expected. Additionally, check whether an existing test should have covered this case. If the root cause is that the product requirement itself was wrong or missing, treat it as a change in existing feature. Otherwise frame it and proceed as a technical change: restate the violated behaviour as a requirement and the reproduction as its scenario.
 
-If the human asks for a technical change, plan and implement it without human review:
+If the human asks for a technical change, plan and implement it without human review until Finish asks for approval to merge:
 1. Write the technical change to `plans/<NNN-slug>/plan.md` using the template below.
 2. Follow the planning skill picked above with the pointer to the plan.
-3. Once planning is done, follow the `${CLAUDE_PLUGIN_ROOT}/skills/implement/SKILL.md` skill for it, without human review.
+3. Once planning is done, follow the `${CLAUDE_PLUGIN_ROOT}/skills/implement/SKILL.md` skill for it.
 
 <technical-change-template>
 
@@ -42,8 +42,8 @@ What is wrong or missing today and why it matters. Include the root cause when t
 What must hold when the change is done, in engineering terms, so a reader who has not seen the request can judge whether the implementation matches it. Same format as a feature plan: `### R<N>. <name>` with a MUST statement, numbered `R1`, `R2`, ... Scenarios (`#### Scenario:` with GIVEN/WHEN/THEN) are optional here; add one where the outcome is observable, such as a bug reproduction. Length scales with the change: a config update may be one requirement, a cleanup may be "Observable behaviour MUST not change".
 
 <requirements-example>
-### R1. CI runs the test suite on every pull request
-Every pull request MUST run the full test suite and report its result on the PR.
+### R1. CI runs the test suite on every push to main
+Every push to `main` MUST run the full test suite and report its result.
 </requirements-example>
 
 ## Non-goals

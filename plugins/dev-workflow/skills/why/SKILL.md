@@ -30,13 +30,13 @@ Before spawning investigators, anchor the investigation in concrete code. Build 
 - The key symbols (function names, type names, constants)
 - An initial commit list: the last few commits touching the target
 - PR numbers from merge commits (pattern `(#1234)` in the subject line), if any
-- Plan directories: `feature/<NNN-slug>` branches containing those commits map to `plans/<NNN-slug>/`
+- Plan directories: a commit's `Squash-of` trailer names its `feature/<NNN-slug>` branch, which maps to `plans/<NNN-slug>/`; an older commit's PR names it
 
 ```bash
 git blame -L <start>,<end> <file>
 git log --oneline -20 -- <file>
 git log -1 --format=%B <commit>
-git branch -a --contains <commit>
+git log -1 --format='%(trailers:key=Squash-of,valueonly)' <commit>
 ```
 
 Also note whether the target looks defensive (null checks, retries, timeouts, guards, fallbacks, feature flags).

@@ -15,16 +15,5 @@ jobs:
           curl -fsSL https://claude.ai/install.sh | bash
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
 
-      - name: Validate marketplace
-        run: claude plugin validate . --strict
-
-      - name: Validate plugins
-        run: |
-          for dir in plugins/*/; do
-            echo "::group::$dir"
-            (cd "$dir" && claude plugin validate . --strict)
-            echo "::endgroup::"
-          done
-
-      - name: Test the UI test lock hook
-        run: bash plugins/macos-dev-workflow/hooks/test-block-unlocked-ui-tests.sh
+      - name: Run the full gate
+        run: bash scripts/gate.sh
