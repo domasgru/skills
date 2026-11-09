@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# The repo's full gate, the same run CI makes: validates the marketplace and every plugin, then runs the script and
-# hook tests. The final line says "all green" only when every step passed.
+# The repo's full gate: validates the marketplace and every plugin, then runs the script and hook tests. The final line says "all green" only when every step passed.
 # usage: bash scripts/gate.sh
 set -euo pipefail
 cd "$(dirname "$0")/.."
