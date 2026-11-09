@@ -8,4 +8,4 @@ metadata:
 
 Resume following `${CLAUDE_PLUGIN_ROOT}/skills/worktree/SKILL.md`. Run the `implementation-orchestrator` subagent from this plugin and pass it the plan via `plans/<NNN-slug>/plan.md` pointer.
 
-Once the orchestrator reports, Finish following `${CLAUDE_PLUGIN_ROOT}/skills/worktree/SKILL.md`.
+Once the orchestrator reports every slice committed, Finish following `${CLAUDE_PLUGIN_ROOT}/skills/worktree/SKILL.md`. On any other report, pass it to the human and stop, with the worktree as it is.

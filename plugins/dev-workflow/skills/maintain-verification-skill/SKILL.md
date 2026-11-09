@@ -1,6 +1,6 @@
 ---
 name: maintain-verification-skill
-description: "Periodic pass (and a per-branch Branch mode, run by the implementation orchestrator) that keeps a project's verification skill and feature map honest: parallel source readers per feature, one live session driving every feature, at most one PR of proven corrections. Use for /maintain-verification-skill or \"audit the verify skill\"."
+description: "Periodic pass (and a per-branch Branch mode, run by the implementation orchestrator) that keeps a project's verification skill and feature map honest: parallel source readers per feature, one live session driving every feature, at most one commit of proven corrections. Use for /maintain-verification-skill or \"audit the verify skill\"."
 disable-model-invocation: true
 ---
 
@@ -18,8 +18,8 @@ The skill files below name their plugin root with a placeholder; it resolves to 
 
 Pick one, and say which:
 
-- **clean** — every feature got source and live coverage; nothing worth shipping. No PR; the pass's worktree is discarded.
-- **changed** — one PR ships proven doc, harness, or map corrections.
+- **clean** — every feature got source and live coverage; nothing worth shipping. Nothing lands; the pass's worktree is discarded.
+- **changed** — one commit on `main` ships proven doc, harness, or map corrections.
 - **blocked** — coverage could not finish or a proven fix could not ship safely. Say exactly what blocked it.
 
 ## Edit scope
@@ -38,15 +38,15 @@ Only edit the verification skill's own directory (its SKILL.md, features/, and a
 
 4. **Live pass.** Required even when source looks clean. The coordinator owns all driving; follow the verification skill's own launch model — one long-lived instance driven serially for servers and UIs, or a fresh isolated session per drive for short-lived CLIs (the skill's Launch section decides, not this one). Where the skill says only one driver may run on the machine (a desktop app driven through the real pointer and keyboard, UI test runs included), check that none is running before the first drive, through the skill's lock where it ships one; if one is, the pass is `blocked`, never queued. Exercise every feature at least once, and hold three invariants the whole pass, whatever the failure: (1) never drive an instance you haven't health-checked since it last did something surprising — doctor before first drive, doctor on each fresh session where sessions are the unit, doctor again after any failed drive, and where doctor can't see the failure (a wedged UI state on a healthy process), reset to a known state or relaunch rather than hoping; (2) evidence captured so far survives every cleanup, checked at its named location, not assumed; (3) nothing a drive started outlives that drive's usefulness — failed-iteration residue is cleaned whether the session is stuck, exited, or shared (for a shared instance, clean the residue, not the instance). A doctor failure caused by skill drift is drift: fix it under edit scope and retry once — restart whatever the fix invalidated, nothing more — before calling the pass `blocked`. A feature that can't be reached is `verified-unreachable` only with the concrete prerequisite (auth, entitlement, OS, external state) and the route attempted; if the map omits that prerequisite, that's drift. Any harness fix from triage gets re-driven live before it ships. Final teardown happens after the last drive of the run — including those re-proofs — so nothing outlives the run (evidence stays, per the skill).
 
-5. **Triage.** Wrong or missing user-POV description → doc drift, fix it. Working behavior the harness can't drive → harness gap, fix it; a harness fix follows the same helpers rule as generation (scripts executable, invocation documented in the skill body). App behavior that's actually broken → product gap; record it for the user, keep it out of this PR. Behavior that must keep holding and no automated test proves → test gap; record it for the user, keep it out of this PR.
+5. **Triage.** Wrong or missing user-POV description → doc drift, fix it. Working behavior the harness can't drive → harness gap, fix it; a harness fix follows the same helpers rule as generation (scripts executable, invocation documented in the skill body). App behavior that's actually broken → product gap; record it for the user, keep it out of this commit. Behavior that must keep holding and no automated test proves → test gap; record it for the user, keep it out of this commit.
 
-6. **Ship or stop.** For changed: one PR of proven corrections, re-read every changed file first, then Finish following `${CLAUDE_PLUGIN_ROOT}/skills/worktree/SKILL.md`. The PR description names the features covered, the unreachable ones with their prerequisites, and every product and test gap. For clean or blocked: no PR, report the outcome and the coverage honestly, copy the evidence the report cites out of the worktree, and discard the worktree following the same skill's Discard.
+6. **Ship or stop.** For changed: one commit of proven corrections, re-read every changed file first, then Finish following `${CLAUDE_PLUGIN_ROOT}/skills/worktree/SKILL.md`. The commit message Finish writes names the features covered, the unreachable ones with their prerequisites, and every product and test gap. Edit scope holds through Finish: a red gate makes the outcome `blocked`, with the worktree left for the human, in place of Finish's implementer. **Not now** leaves the outcome `changed`, unlanded, with its worktree. For clean or blocked: nothing lands, report the outcome and the coverage honestly, copy the evidence the report cites out of the worktree, and discard the worktree following the same skill's Discard.
 
 Keep concise run notes (features covered, unreachable prerequisites, confirmed drift, outcome) in a scratch location; don't commit them.
 
 ## Branch mode
 
-Run by the implementation orchestrator on a feature branch, after its last slice, in the feature's worktree. Its scope is the branch's diff, never the whole map. No worktree, no PR, no source wave, no live pass over every feature. Edit scope and the map rule above still hold.
+Run by the implementation orchestrator on a feature branch, after its last slice, in the feature's worktree. Its scope is the branch's diff, never the whole map. No worktree, no Finish, no source wave, no live pass over every feature. Edit scope and the map rule above still hold.
 
 1. **Read.** The diff `git diff main...HEAD`, the plan's requirements, and the verification skill's SKILL.md and `features/` index. Nothing else unless an item below needs it.
 2. **List the items**, of three kinds only:

@@ -1,6 +1,6 @@
 # Test-pruning campaign
 
-Campaign mode prunes one subsystem's whole test surface in one PR: one package,
+Campaign mode prunes one subsystem's whole test surface in one change: one package,
 plugin, or core area. The value bar, retention bar,
 candidate evidence, and validation in [SKILL.md](SKILL.md) apply to every
 lane. This file adds the order of work and the lessons of a full campaign. The
@@ -107,7 +107,7 @@ confirm every new regression `main` added still has a home. Rerun the whole
 subsystem suite and repeat live proof on the merged head.
 
 Expect review tooling to see a truncated file list on a diff this large.
-Record maintainer decisions for generic compatibility flags in the PR evidence
+Record maintainer decisions for generic compatibility flags in the commit message
 rather than editing gates.
 
 Hand off with the [SKILL.md](SKILL.md) report, plus:

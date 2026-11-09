@@ -12,7 +12,7 @@ claude plugin install dev-workflow --marketplace domasgru/skills         # any s
 ## Use
 
 ```
-/do <request>        # whole workflow, you review once
+/do <request>        # whole workflow, you review the plan and approve the merge
 /specify <feature>   # or step by step: /specify, then /plan or /architect, then /implement
 /how <question>      # how does X work
 /why <question>      # why is X this way

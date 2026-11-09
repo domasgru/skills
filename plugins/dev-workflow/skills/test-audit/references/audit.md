@@ -59,6 +59,6 @@ contract. Audit existing matches:
   paths.
 - Inspect `git diff --numstat`; get final independent review.
 - Report causes, removed categories/seams, retained false positives, proof/cost,
-  production versus test/support LOC, PR state, follow-ups.
+  production versus test/support LOC, landing state, follow-ups.
 - Commit/push/land only with task authority.
   Refresh from main + rediscover before another audit batch.

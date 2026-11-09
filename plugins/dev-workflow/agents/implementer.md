@@ -14,12 +14,12 @@ Before writing code, invoke with the Skill tool every skill the brief's **Skills
 
 Use the `tdd` skill where relevant, at the seams the brief names.
 
-Build regularly and run individual test files regularly. Once at the end, run the repo's **quick gate**, the per-change check its `AGENTS.md` names, as a foreground Bash call; where it names none, run the full test suite. The full gate is the orchestrator's.
+Build regularly and run individual test files regularly. Once at the end, run the repo's **quick gate**, the per-change check its `AGENTS.md` names, as a foreground Bash call; where it names none, run the full test suite. The full gate runs at worktree Finish.
 
-Your turn ends with your report and nothing earlier: the orchestrator reads any stop as your final answer, so keep every command you wait on in the foreground.
+Your turn ends with your report and nothing earlier: the dispatching agent reads any stop as your final answer, so keep every command you wait on in the foreground.
 
 Briefs and plans are ephemeral. You should never mention their requirement, slice or test scenario IDs or any other references from them inside the code (tests/implementation/comments). The source of truth is the tests and implementation itself.
 
 Write comments only for a non-obvious *why* the code can't show. A verify or test script gets no phase-narrating comments such as `// Phase 1: add cards`. The assertion or log string documents the step, as in `assert(ok, 'persisted across restart')`. This applies to every file you produce.
 
-Once every acceptance criterion of the slice holds and the gate you ran is green, report the status to the **implementation orchestrator** agent.
+Once every acceptance criterion of the slice holds and the gate you ran is green, report the status to the agent that dispatched you.

@@ -49,7 +49,8 @@ Before adding test, answer:
 
 ## Audit and validation
 
-- Before audit edit: read [candidate evidence and workflow](references/audit.md#candidate-evidence);
+- Before audit edit: start worktree per `${CLAUDE_PLUGIN_ROOT}/skills/worktree/SKILL.md`; read
+  [candidate evidence and workflow](references/audit.md#candidate-evidence);
   inspect full owners/callers/history; record remaining proof before deletion.
 - Delete obsolete production seams with tests; never optimize for deletion counts.
 - Follow [proof policy](#proof-policy); never edit checkout during active test
@@ -59,9 +60,9 @@ Before adding test, answer:
 
 ## Proof policy
 
-- PR CI = default broad proof. Change builds + focused tests pass → open ready
-  PR. CI runs broad suites; never delay PR for pre-PR suite runs.
-- Before PR, prove locally and narrowly: touched tests, targeted typecheck, lint,
+- Full gate at worktree Finish = default broad proof. Change builds + focused tests
+  pass → Finish. Gate runs broad suites; never delay Finish for earlier suite runs.
+- Before Finish, prove locally and narrowly: touched tests, targeted typecheck, lint,
   format. Local machine cannot safely cover contract: record gap; never fake proof.
 - Never rerun or re-push just for green. Fix real failures.
 - Prove changed contract, complete required gates, finish. Broaden/repeat only for
