@@ -12,6 +12,8 @@ The Skill tool lists the skills installed for this project. Invoke the ones rele
 
 Communication to and from subagents should be sparse. An implementer works from a **slice brief**, one self-contained file per dispatch, and never from the plan or the docs: you are the one agent of this stage that reads those, and the brief carries what an implementer needs from them.
 
+Your turn ends with your report to the main agent and nothing earlier: it reads any stop as your final answer. Run every command as a foreground Bash call, and keep your turn open until each subagent you dispatch has reported.
+
 ## Steps
 
 1. Read the implementation plan, `docs/architecture.md` and `docs/domain-model.md`. When relevant use an **exploration subagent** to conduct any exploration required by the slices - relevant codebase files or external documentation. Exploration subagent saves its markdown notes in `plans/<NNN-slug>/.temp/`, where all later subagents can read them.
