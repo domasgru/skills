@@ -397,6 +397,13 @@ if command -v plutil >/dev/null; then
     exits "abandon goes through" 0 wt abandon "$(basename "$gone")"
     same "abandon removes the worktree's DerivedData" "$(exists "$HOME/Library/Developer/Xcode/DerivedData/abandoned")" no
     same "another project's DerivedData stays" "$(exists "$HOME/Library/Developer/Xcode/DerivedData/unrelated")" yes
+    live=$(start live-tree)
+    derived_data orphaned "$(dirname "$live")/removed-by-hand/App.xcodeproj"
+    derived_data live "$live/App.xcodeproj"
+    exits "prune goes through" 0 wt prune
+    same "prune removes the DerivedData of a worktree that is gone" "$(exists "$HOME/Library/Developer/Xcode/DerivedData/orphaned")" no
+    same "prune keeps a live worktree's DerivedData" "$(exists "$HOME/Library/Developer/Xcode/DerivedData/live")" yes
+    same "prune keeps another project's DerivedData" "$(exists "$HOME/Library/Developer/Xcode/DerivedData/unrelated")" yes
 fi
 
 if [ "$failures" -ne 0 ]; then echo "test-worktree: $failures failed"; exit 1; fi

@@ -61,6 +61,27 @@ prune() {
     echo "pruned $branch (landed)" >&2
     remove_derived_data "$physical"
   done
+  remove_orphaned_derived_data
+}
+
+# Deletes the Xcode DerivedData of worktrees under $dir that no longer exist, such as one removed by hand or by
+# git worktree remove, which leave theirs behind.
+remove_orphaned_derived_data() {
+  local data="$HOME/Library/Developer/Xcode/DerivedData" folder workspace physical name
+  [ -d "$data" ] && [ -d "$dir" ] || return 0
+  physical=$(cd "$dir" && pwd -P)
+  for folder in "$data"/*/; do
+    workspace=$(plutil -extract WorkspacePath raw -o - "$folder/info.plist" 2>/dev/null) || continue
+    case "$workspace" in
+      "$dir"/*) name=${workspace#"$dir"/} ;;
+      "$physical"/*) name=${workspace#"$physical"/} ;;
+      *) continue ;;
+    esac
+    name=${name%%/*}
+    [ -d "$dir/$name" ] && continue
+    rm -rf "$folder" && echo "removed DerivedData $(basename "$folder") of the gone worktree $name" >&2 \
+      || echo "warning: could not remove $folder" >&2
+  done
 }
 
 # Says why a finished worktree stayed: its uncommitted changes, else git's error.

@@ -104,7 +104,7 @@ For a worktree whose work will not land, on the human's word. Call `ExitWorktree
 
 ## Prune
 
-Run `worktree.sh`, beside this file, as `bash <path> prune`. It removes every worktree whose branch has landed, with its branch, and deletes the worktree's Xcode DerivedData with it. A worktree with uncommitted changes stays, reported with those changes listed. Start runs it too, so a worktree Finish could not leave disappears without a separate step.
+Run `worktree.sh`, beside this file, as `bash <path> prune`. It removes every worktree whose branch has landed, with its branch, and deletes the worktree's Xcode DerivedData with it, and the DerivedData of any worktree that is already gone. A worktree with uncommitted changes stays, reported with those changes listed. Start runs it too, so a worktree Finish could not leave disappears without a separate step.
 
 ## Rules
 
