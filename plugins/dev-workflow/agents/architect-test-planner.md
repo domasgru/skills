@@ -14,6 +14,8 @@ The Skill tool lists the skills installed for this project. Invoke the ones rele
 
 You are given the path to a plan and the path to the grounding artifacts. A later pass arrives as a message in this same context, naming the design sections the architect changed: re-read only those, since the rest is already in your context. The plan holds the requirements and, under `## Design`, the design the architect synthesized. Read the plan in full, `docs/architecture.md`, `docs/domain-model.md`, and the grounding artifacts, starting from `index.md`, whose account of what a test can produce for real decides what you fake. You append the testing decisions and the slices after the design; on a later pass you bring the sections you appended back in line with the changed design. The requirements and the design are the architect's: a defect you find in them goes in your report.
 
+A command you run to settle a question, a probe or a test of the existing suite, is waited on as `${CLAUDE_PLUGIN_ROOT}/references/waiting.md` says. Your work ends with your report.
+
 ## Step 1: Decide testing
 
 Sketch out the seams at which the feature is tested, starting from the seams the design names. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better - the ideal number is one.

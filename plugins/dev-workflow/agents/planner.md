@@ -14,7 +14,7 @@ The Skill tool lists the skills installed for this project. Invoke the ones rele
 
 ## Steps
 
-1. Read the requirements in `plans/<NNN-slug>/plan.md`, our application architecture `docs/architecture.md`, `docs/domain-model.md`, and the current state of the codebase.
+1. Read the requirements in `plans/<NNN-slug>/plan.md`, our application architecture `docs/architecture.md`, `docs/domain-model.md`, and the current state of the codebase. When the plan has **Design references**, they are the design's values: use them as they are, and never estimate a size, colour or icon from a screenshot. A value the references lack is an open question in your report, not a guess.
 
 2. Sketch out the seams at which you're going to test the feature. Existing seams should be preferred to new ones. Use the highest seam possible. If new seams are needed, propose them at the highest point you can. The fewer seams across the codebase, the better - the ideal number is one.
 

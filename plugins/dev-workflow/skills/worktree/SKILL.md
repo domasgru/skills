@@ -29,13 +29,13 @@ Takes the worktree's work to `main` as one squashed commit, after a green gate a
 
 2. **Take in main.** Run `git fetch origin main`, then `git merge origin/main`, resolving any conflict so both sides keep their intent. Done when `git merge-base --is-ancestor origin/main HEAD` exits 0 and the tree is clean.
 
-3. **Gate.** Run the repo's full gate on this commit, as its `AGENTS.md` names it: in a repo split into areas, the gate of every area the diff touches, by the repo's own rule where it has one, and of every area when the diff touches none. Where it names none, run the full test suite. A gate that outlasts the Bash timeout runs with `run_in_background`, and you end your turn until its notification resumes you.
+3. **Gate.** Run the repo's full gate on this commit, as its `AGENTS.md` names it: in a repo split into areas, the gate of every area the diff touches, by the repo's own rule where it has one, and of every area when the diff touches none. Where it names none, run the full test suite. A gate runs with `run_in_background`, and you end your turn until its notification resumes you, as `${CLAUDE_PLUGIN_ROOT}/references/waiting.md` says.
 
    Run no gate in two cases, and say which in the commit message:
    - **Prose only:** every changed file is documentation or other text no gate builds or tests. A comment in a source file is code here, since the gate builds and lints that file.
    - **Nothing to run:** the repo has neither a gate nor tests.
 
-   A red gate is a bug in the branch: write the failure to `plans/<NNN-slug>/.temp/slices/fixes.md`, dispatch one `implementer` subagent from this plugin with that path, commit its work, log it under Implement in `plans/<NNN-slug>/development-logs.md` when that file exists, and return to step 2. The second red gate in a row ends Finish: report it and stop, with the worktree as it is.
+   A failed test that the branch did not add or change, that exercises none of its code, or that the repo's record of known failures (where its `AGENTS.md` names one) shows failing in other checkouts too, is not the branch's bug: put it under **Open** with its first failure line, so the human decides at step 6, and rerun nothing to prove it. Any other red gate is a bug in the branch: write the failure to `plans/<NNN-slug>/.temp/slices/fixes.md`, dispatch one `implementer` subagent from this plugin with that path, commit its work, log it under Implement in `plans/<NNN-slug>/development-logs.md` when that file exists, and return to step 2. The second red gate in a row ends Finish: report it and stop, with the worktree as it is.
 
    A gate that passes but says something went unproved holds no bug to fix: put what went unproved under **Open**, so the human decides at step 6.
 

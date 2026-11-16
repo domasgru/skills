@@ -16,12 +16,15 @@ if grep -Eq "${boundary}tail[[:space:]]([^;&|]*[[:space:]])?(-[[:alnum:]]*[fF]|-
   reason='`tail -f` never exits, so you stay open after the work you watch has ended.'
 elif grep -Eq "${boundary}(for|while|until)[[:space:]]" <<<"$shell" && grep -Eq "${boundary}sleep([[:space:]]|$)" <<<"$shell"; then
   reason='A sleep loop waits on a condition that may never come true: a subagent that failed or a process that died never satisfies it.'
+elif grep -Eq "${boundary}sleep[[:space:]]+([3-9][0-9]|[0-9]{3,})" <<<"$shell" \
+  || grep -Eq 'time\.sleep\([[:space:]]*([3-9][0-9]|[0-9]{3,})|select\.select\([^)]*,[[:space:]]*([3-9][0-9]|[0-9]{3,})[[:space:]]*\)|lsof[[:space:]][^;&|]*\+r|read[[:space:]][^;&|]*-t[[:space:]]*([3-9][0-9]|[0-9]{3,})' <<<"$command"; then
+  reason='A long sleep, or a stand-in for one (time.sleep, select.select, lsof +r, read -t), passes time instead of waiting on the work, and outlives it when it dies.'
 elif grep -Eq '/subagents/agent-|/tasks/a[0-9a-f]{16}\.output' <<<"$command"; then
   reason='Subagent transcripts are internal and do not say reliably whether a subagent has finished.'
 fi
 [ -n "$reason" ] || exit 0
 
-jq -n --arg reason "Blocked: $reason Background subagents and run_in_background commands notify you when they finish, including when they fail. End your turn; the notification resumes you. Run a long command such as a test gate as a foreground Bash call with a long timeout, or with run_in_background." '{
+jq -n --arg reason "Blocked: $reason Background subagents and run_in_background commands notify you when they finish, including when they fail. Start a long command such as a test gate with run_in_background, then end your turn; the notification resumes you. A foreground call is moved to the background after 180 s anyway." '{
   hookSpecificOutput: {
     hookEventName: "PreToolUse",
     permissionDecision: "deny",

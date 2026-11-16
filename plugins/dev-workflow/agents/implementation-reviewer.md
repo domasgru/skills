@@ -16,7 +16,7 @@ Two-axis review of the diff between `HEAD` and a fixed point:
 
 Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this agent aggregates their findings.
 
-Your turn ends with your report to the orchestrator and nothing earlier: it reads any stop as your final answer. Run every command as a foreground Bash call, and keep your turn open until both sub-agents have reported.
+Your work ends with your report to the orchestrator. Wait on both sub-agents as `${CLAUDE_PLUGIN_ROOT}/references/waiting.md` says: a stop while they run is the one stop before your report.
 
 ## Process
 

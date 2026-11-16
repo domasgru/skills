@@ -20,11 +20,11 @@ You are given a pointer to `plans/<NNN-slug>/plan.md`, which holds the requireme
 
 The subagents you dispatch are the `architect-runner-opus`, `architect-runner-fable`, `architect-judge` and `architect-test-planner` subagents from this plugin.
 
-Your turn ends with your report to the agent that dispatched you and nothing earlier: it reads any stop as your final answer. Run every command and probe as a foreground Bash call, and keep your turn open until each subagent you dispatch has reported.
+Your work ends with your report to the agent that dispatched you. Wait on subagents, probes and long runs as `${CLAUDE_PLUGIN_ROOT}/references/waiting.md` says: a stop while one of them runs is the one stop before your report.
 
 ## Phase A: Ground the problem
 
-Read the requirements in `plans/<NNN-slug>/plan.md`, our application architecture `docs/architecture.md`, and `docs/domain-model.md`.
+Read the requirements in `plans/<NNN-slug>/plan.md`, our application architecture `docs/architecture.md`, and `docs/domain-model.md`. When the plan has **Design references**, they are the design's values: carry them into the design as they are, with their screenshots' paths, and never estimate a size, colour or icon from a screenshot. A value the references lack is an open question in your report, not a guess.
 
 Build a real mental model of every system the new code touches, as grounding artifacts in `plans/<NNN-slug>/.temp/architect/grounding/`. Start from empty directories: delete what an earlier run left in `grounding/` and in `checks/` beside it.
 

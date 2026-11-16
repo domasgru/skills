@@ -15,7 +15,7 @@ Each `R<N>` this slice delivers, its text quoted from the plan, cut to the part 
 
 ## Design
 
-The part of the plan's design this slice builds, copied: the types, signatures and module placement it adds or changes, the files it touches, and the invariants and lifecycle rules they carry. Leave out the parts of the design other slices build.
+The part of the plan's design this slice builds, copied: the types, signatures and module placement it adds or changes, the files it touches, and the invariants and lifecycle rules they carry. Leave out the parts of the design other slices build. For a slice that changes what the user sees, the plan's **Design references** for that view, copied with their values and screenshot paths.
 
 ## Rules that apply
 
@@ -27,7 +27,7 @@ Each skill on the slice's **Skills** line in the plan, by its full name, plus an
 
 ## Tests
 
-Each `T<N>` row this slice turns green, copied whole: its seam, setup, action and expected result. Then each check under Verified without a test that this slice owns.
+Each `T<N>` row this slice turns green, copied whole: its seam, setup, action and expected result. Then each check under Verified without a test that this slice owns. Then the UI tests to run, by name: the ones this slice adds or changes, run once near the end; "None" when it touches no UI test.
 
 ## Starting point
 
@@ -35,5 +35,5 @@ What the earlier slices built that this one builds on, and every place they depa
 
 ## Done when
 
-The slice's acceptance criteria, copied, and the repo's quick gate is green.
+The slice's acceptance criteria, copied, and the repo's quick gate is green. For a slice that changes what the user sees: one screenshot of that view through the repo's verification skill, matching the design references above.
 </slice-brief-template>

@@ -40,7 +40,7 @@ Write short sentences, get rid of extra words. Avoid putting multiple thoughts i
 
    Finding _facts_ is your job, never the user's. When a frontier question needs a fact from the environment (the repo, the docs, the running product), dispatch a subagent to find it; don't ask the user for anything you could look up yourself. Don't block on it: a running exploration is an unsettled prerequisite, so only the questions downstream of it wait for the subagent to report; ask the rest of the frontier now. The _decisions_ are the user's: put each to them and wait.
 
-   This step is done when the frontier is empty: every branch of the design tree visited, nothing left silently assumed. Then go straight to writing the requirements in step 5. Don't summarise the decisions for approval first: the user reviews the written plan and asks for changes there.
+   This step is done when the frontier is empty: every branch of the design tree visited, nothing left silently assumed. Then go straight to step 5. Don't summarise the decisions for approval first: the user reviews the written plan and asks for changes there.
    
 4. Sharpen the product's language as you understand the problem. `docs/domain-model.md` is the glossary.
 
@@ -50,11 +50,13 @@ Write short sentences, get rid of extra words. Avoid putting multiple thoughts i
    - **Cross-reference with code.** When the user states how something works today, check whether the code agrees, and surface the contradiction if it does not.
    - **Offer to record product decisions sparingly.** A decision that outlives this feature, that a future reader would wonder about, belongs in the overview: offer it there and move on. Architecture decisions are the `plan` and `architect` skills' to offer; leave them.
 
-5. Write the product requirements using the template below, at `plans/<NNN-slug>/plan.md`. One feature per plan: a coherent capability a user would recognise, complete enough to demo on its own. Write in product language only. Requirements cover only behaviour that is new or changes. Behaviour the existing tests already cover, and that this feature leaves as it is, stays out. Every section is required; write "None" rather than deleting a heading.
+5. When the request links a design (a Figma file, frame or node), record it before writing the requirements, since the agents that plan and build it usually cannot reach Figma. For every frame and node the feature shows, with the Figma tools: save its screenshot under `plans/<NNN-slug>/.temp/figma/`, and read its exact values (sizes, paddings and gaps, corner radii, font sizes and weights, colours) and the SF Symbol or icon name of each icon, the Figma layer name. Write them under the plan's **Design references**: one entry per node, with its link, its screenshot's path, and its values as numbers, not descriptions. A value Figma does not give, such as a hover state it has no frame for, is a question for the user in step 3.
 
-6. Dispatch **one** `prd-reviewer` subagent from this plugin, never reviewing the draft yourself. Pass it **only** the path to `plans/<NNN-slug>/plan.md` and the path to `docs/product-overview.md`. Then go through its findings one by one and decide which to accept. Dispatch a **generic** subagent to apply the accepted findings, and wait for it to finish. Never end your turn while it runs. Check that the plan holds each change. Then create `plans/<NNN-slug>/development-logs.md` from `${CLAUDE_PLUGIN_ROOT}/references/development-logs-template.md` and record the applied changes under Specify.
+6. Write the product requirements using the template below, at `plans/<NNN-slug>/plan.md`. One feature per plan: a coherent capability a user would recognise, complete enough to demo on its own. Write in product language only. Requirements cover only behaviour that is new or changes. Behaviour the existing tests already cover, and that this feature leaves as it is, stays out. Every section is required; write "None" rather than deleting a heading.
 
-7. Once the PRD is finalized, report to the user the status, the path to the plan document, the worktree path, and that the next step is `/architect` for a new feature or a significant change, or `/plan` for a less complex feature or a small to medium change. When `/do` is running this skill, leave out the next step: `/do` asks the user to confirm and then continues on its own.
+7. Dispatch **one** `prd-reviewer` subagent from this plugin, never reviewing the draft yourself. Pass it **only** the path to `plans/<NNN-slug>/plan.md` and the path to `docs/product-overview.md`. Then go through its findings one by one and decide which to accept. Dispatch a **generic** subagent to apply the accepted findings, and wait for it to finish. Never end your turn while it runs. Check that the plan holds each change. Then create `plans/<NNN-slug>/development-logs.md` from `${CLAUDE_PLUGIN_ROOT}/references/development-logs-template.md` and record the applied changes under Specify.
+
+8. Once the PRD is finalized, report to the user the status, the path to the plan document, the worktree path, and that the next step is `/architect` for a new feature or a significant change, or `/plan` for a less complex feature or a small to medium change. When `/do` is running this skill, leave out the next step: `/do` asks the user to confirm and then continues on its own.
 
 <product-requirements-template>
 
@@ -127,5 +129,9 @@ Requirements should be testable — each scenario is a potential test case, and 
 ## Non-goals
 
 What a reader would reasonably assume is in this feature and is not, each with the reason.
+
+## Design references
+
+"None" when the request links no design. Otherwise one entry per Figma frame or node the feature shows: its link, its screenshot under `plans/<NNN-slug>/.temp/figma/`, its exact values (sizes, paddings and gaps, corner radii, font sizes and weights, colours), and the SF Symbol or icon name of each icon (the Figma layer name). Planning and building use these values as they are.
 
 </product-requirements-template>

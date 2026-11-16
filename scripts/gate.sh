@@ -9,6 +9,7 @@ for plugin in plugins/*/; do
     (cd "$plugin" && claude plugin validate . --strict)
 done
 bash plugins/dev-workflow/skills/worktree/test-worktree.sh
+bash plugins/dev-workflow/hooks/test-block-polling.sh
 bash plugins/macos-dev-workflow/hooks/test-block-unlocked-ui-tests.sh
 python3 plugins/macos-dev-workflow/hooks/test_swift_skills.py
 

@@ -25,7 +25,7 @@ If the human asks for a new feature or a change to an existing feature, specify 
 If the human asks to fix a malfunctioning feature, first reproduce the bug in the worktree, in an end-to-end setting as close as possible to how the user encounters it. Then debug to find the root cause of why the feature is not working as expected. Additionally, check whether an existing test should have covered this case. If the root cause is that the product requirement itself was wrong or missing, treat it as a change in existing feature. Otherwise frame it and proceed as a technical change: restate the violated behaviour as a requirement and the reproduction as its scenario.
 
 If the human asks for a technical change, plan and implement it without human review until Finish asks for approval to merge:
-1. Write the technical change to `plans/<NNN-slug>/plan.md` using the template below.
+1. Write the technical change to `plans/<NNN-slug>/plan.md` using the template below. When the request links a design, record it under **Design references** first, as `${CLAUDE_PLUGIN_ROOT}/skills/specify/SKILL.md` step 5 says: you have the Figma tools, the agents after you usually do not.
 2. Follow the planning skill picked above with the pointer to the plan.
 3. Once planning is done, follow the `${CLAUDE_PLUGIN_ROOT}/skills/implement/SKILL.md` skill for it.
 
@@ -49,5 +49,9 @@ Every push to `main` MUST run the full test suite and report its result.
 ## Non-goals
 
 What a reader would reasonably assume is in this change and is not, each with the reason.
+
+## Design references
+
+"None" when the request links no design. Otherwise recorded as `${CLAUDE_PLUGIN_ROOT}/skills/specify/SKILL.md` step 5 says, before planning.
 
 </technical-change-template>
