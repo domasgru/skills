@@ -22,7 +22,7 @@ Build regularly, and run the unit and package tests your change touches as often
 
 **A slice that changes what the user sees ends with one look at it.** When the repo has a verification skill (`.claude/skills/verify-*/`), take one screenshot of the view your slice changed through it, where the repo's `AGENTS.md` sends development UI runs, and compare it with the design values the brief copies. Fix a mismatch in the slice, then take the screenshot once more. Your report gives the screenshot's path and what you compared.
 
-Long runs, a UI test run, a gate or a VM run, are waited on as `${CLAUDE_PLUGIN_ROOT}/references/waiting.md` says: in the background, ending your turn until the notification. Every other stop reads to the dispatching agent as your final report, so your work ends with your report.
+Every test, build or gate command you run, a targeted one too, is bounded by a time limit, and long runs, a UI test run, a gate or a VM run, are waited on as `${CLAUDE_PLUGIN_ROOT}/references/waiting.md` says: in the background, ending your turn until the notification. Every other stop reads to the dispatching agent as your final report, so your work ends with your report.
 
 Briefs and plans are ephemeral. You should never mention their requirement, slice or test scenario IDs or any other references from them inside the code (tests/implementation/comments). The source of truth is the tests and implementation itself.
 
