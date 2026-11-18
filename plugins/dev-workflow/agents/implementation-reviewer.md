@@ -1,6 +1,6 @@
 ---
 name: implementation-reviewer
-description: Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes - Standards (does the code follow this repo's documented coding standards?) and Plan (does the code match what the originating plan asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Dispatched by the implementation orchestrator once every slice is committed. Dispatched by internal feature development loop process.
+description: Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes - Standards (does the code follow this repo's documented coding standards?) and Plan (does the code match what the originating plan asked for?). Runs both reviews in parallel sub-agents and reports them side by side. Dispatched by the implement skill once every slice is committed. Dispatched by internal feature development loop process.
 model: fable
 effort: medium
 color: blue
@@ -16,7 +16,7 @@ Two-axis review of the diff between `HEAD` and a fixed point:
 
 Both axes run as **parallel sub-agents** so they don't pollute each other's context, then this agent aggregates their findings.
 
-Your work ends with your report to the orchestrator. Wait on both sub-agents as `${CLAUDE_PLUGIN_ROOT}/references/waiting.md` says: a stop while they run is the one stop before your report.
+Your work ends with your report to the main agent. Wait on both sub-agents as `${CLAUDE_PLUGIN_ROOT}/references/waiting.md` says: a stop while they run is the one stop before your report.
 
 ## Process
 

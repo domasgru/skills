@@ -43,7 +43,7 @@ Takes the worktree's work to `main` as one squashed commit, after a green gate a
 
 4. **Push.** Run `git push -u origin HEAD`, so the human can read the diff on GitHub. On failure, report it and stop.
 
-5. **Share the context.** Run `git rev-parse HEAD`: that full commit is what the human approves. Write the commit message to `plans/<NNN-slug>/.temp/land-message.md`, following the template below. Print it in the session, then print the context below it, leaving out a line the change has no data for. For a planned change, the orchestrator's `plans/<NNN-slug>/.temp/implement-report.md` supplies most of it. The human decides from this alone, so the unflattering parts go in.
+5. **Share the context.** Run `git rev-parse HEAD`: that full commit is what the human approves. Write the commit message to `plans/<NNN-slug>/.temp/land-message.md`, following the template below. Print it in the session, then print the context below it, leaving out a line the change has no data for. For a planned change, the implement skill's `plans/<NNN-slug>/.temp/implement-report.md` supplies most of it. The human decides from this alone, so the unflattering parts go in.
 
    <finish-context-template>
    **Branch:** `feature/<NNN-slug>` at `<full sha>`

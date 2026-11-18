@@ -1,6 +1,6 @@
 ---
 name: maintain-verification-skill
-description: "Periodic pass (and a per-branch Branch mode, run by the implementation orchestrator) that keeps a project's verification skill and feature map honest: parallel source readers per feature, one live session driving every feature, at most one commit of proven corrections. Use for /maintain-verification-skill or \"audit the verify skill\"."
+description: "Periodic pass (and a per-branch Branch mode, run by the implement skill) that keeps a project's verification skill and feature map honest: parallel source readers per feature, one live session driving every feature, at most one commit of proven corrections. Use for /maintain-verification-skill or \"audit the verify skill\"."
 disable-model-invocation: true
 ---
 
@@ -46,7 +46,7 @@ Keep concise run notes (features covered, unreachable prerequisites, confirmed d
 
 ## Branch mode
 
-Run by the implementation orchestrator on a feature branch, after its last slice, in the feature's worktree. Its scope is the branch's diff, never the whole map. No worktree, no Finish, no source wave, no live pass over every feature. Edit scope and the map rule above still hold.
+Run by an implementer the implement skill dispatches on a feature branch, after its last slice, in the feature's worktree. Its scope is the branch's diff, never the whole map. No worktree, no Finish, no source wave, no live pass over every feature. Edit scope and the map rule above still hold.
 
 1. **Read.** The diff `git diff main...HEAD`, the plan's requirements, and the verification skill's SKILL.md and `features/` index. Nothing else unless an item below needs it.
 2. **List the items**, of three kinds only:
@@ -56,4 +56,4 @@ Run by the implementation orchestrator on a feature branch, after its last slice
    No items → outcome `clean`; stop without driving or editing.
 3. **Edit** the skill's directory for each item: update, add, or remove.
 4. **Drive** each recipe or handle you changed or added once, with the skill, holding its invariants (doctor first, evidence kept, cleanup after). If the skill refuses because another run holds the machine, don't wait: outcome `undriven`. A drive that fails because the app is wrong is a bug in this branch, not a product gap to record: outcome `failed`, with the evidence.
-5. **Report** to the orchestrator in one line: `clean`, `changed` (with what was driven), `undriven` or `failed` (with the evidence path). Leave the edits uncommitted; the orchestrator commits them.
+5. **Report** to the main agent in one line: `clean`, `changed` (with what was driven), `undriven` or `failed` (with the evidence path). Leave the edits uncommitted; the main agent commits them.

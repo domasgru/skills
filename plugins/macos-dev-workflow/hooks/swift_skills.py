@@ -26,7 +26,6 @@ PLANNERS = {
     "dev-workflow:architect-test-planner",
     "dev-workflow:planner",
     "dev-workflow:plan-reviewer",
-    "dev-workflow:implementation-orchestrator",
 }
 
 MAX_FILE_BYTES = 512 * 1024

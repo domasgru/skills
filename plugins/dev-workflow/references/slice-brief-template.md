@@ -1,6 +1,6 @@
 # Slice brief
 
-What an implementer works from: one slice, self-contained. The implementation orchestrator writes it to `plans/<NNN-slug>/.temp/slices/S<N>.md` just before dispatching the slice, from the plan, the docs, and what the earlier slices actually built. The implementer reads the brief and the code, nothing else, so whatever it needs from `plan.md` or `docs/` is copied in here, not pointed at.
+What an implementer works from: one slice, self-contained. The main agent, running the implement skill, writes it to `plans/<NNN-slug>/.temp/slices/S<N>.md` just before dispatching the slice, from the plan, the docs, and what the earlier slices actually built. The implementer reads the brief and the code, nothing else, so whatever it needs from `plan.md` or `docs/` is copied in here, not pointed at.
 
 <slice-brief-template>
 # S<N>: <slice-title>
