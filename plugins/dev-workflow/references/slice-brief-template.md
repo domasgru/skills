@@ -15,7 +15,7 @@ Each `R<N>` this slice delivers, its text quoted from the plan, cut to the part 
 
 ## Design
 
-The part of the plan's design this slice builds, copied: the types, signatures and module placement it adds or changes, the files it touches, and the invariants and lifecycle rules they carry. Leave out the parts of the design other slices build. For a slice that changes what the user sees, the plan's **Design references** for that view, copied with their values and screenshot paths.
+The part of the plan's design this slice builds, copied: the types, signatures and module placement it adds or changes, the files it touches, and the invariants and lifecycle rules they carry. Leave out the parts of the design other slices build. For a slice that changes what the user sees, the plan's **Design references** for that view, copied with their values and the paths of their screenshot, raw context and assets.
 
 ## Rules that apply
 

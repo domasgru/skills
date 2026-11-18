@@ -24,7 +24,7 @@ Your work ends with your report to the agent that dispatched you. Wait on subage
 
 ## Phase A: Ground the problem
 
-Read the requirements in `plans/<NNN-slug>/plan.md`, our application architecture `docs/architecture.md`, and `docs/domain-model.md`. When the plan has **Design references**, they are the design's values: carry them into the design as they are, with their screenshots' paths, and never estimate a size, colour or icon from a screenshot. A value the references lack is an open question in your report, not a guess.
+Read the requirements in `plans/<NNN-slug>/plan.md`, our application architecture `docs/architecture.md`, and `docs/domain-model.md`. When the plan has **Design references**, they are the design's values: carry them into the design as they are, with their screenshots' paths, and never estimate a size, colour or icon from a screenshot. A value the references lack is read from the node's raw context file beside its screenshot; one missing there too is an open question in your report, not a guess.
 
 Build a real mental model of every system the new code touches, as grounding artifacts in `plans/<NNN-slug>/.temp/architect/grounding/`. Start from empty directories: delete what an earlier run left in `grounding/` and in `checks/` beside it.
 
